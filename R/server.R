@@ -587,7 +587,7 @@ startApp <- function(appObj, port, host, quiet) {
       hostString <- host
       if (httpuv::ipFamily(host) == 6L)
         hostString <- paste0("[", hostString, "]")
-      message('\n', 'Listening on http://', hostString, ':', port)
+      message('\n', 'Shiny in K-Lab, Listening on http://', hostString, ':', port)
     }
     return(startServer(host, port, httpuvApp))
   } else if (is.character(port)) {
