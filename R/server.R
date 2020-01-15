@@ -75,7 +75,7 @@ addResourcePath <- function(prefix, directoryPath) {
   # if (!grepl('^[a-z0-9\\-_][a-z0-9\\-_.]*$', prefix, ignore.case = TRUE, perl = TRUE)) {
   #   stop("addResourcePath called with invalid prefix; please see documentation")
   # }
-  
+
   if (prefix %in% c('shared')) {
     stop("addResourcePath called with the reserved prefix '", prefix, "'; ",
          "please use a different prefix")
@@ -94,18 +94,18 @@ addResourcePath <- function(prefix, directoryPath) {
   # # Note that previous versions of shiny used to warn about this case,
   # # but it was eventually removed since it caused confusion (#567).
   # # It seems a good compromise is to throw a more information message.
-  # if (getOption("shiny.resourcePathChanges", FALSE) &&
-  #     prefix %in% names(.globals$resourcePaths)) {
-  #   existingPath <- .globals$resourcePaths[[prefix]]$path
-  #   if (normalizedPath != existingPath) {
-  #     message(
-  #       "The resource path '", prefix, "' used to point to ",
-  #       existingPath, ", but it now points to ", normalizedPath, ". ",
-  #       "If your app doesn't work as expected, you may want to ",
-  #       "choose a different prefix name."
-  #     )
-  #   }
-  # }
+  if (getOption("shiny.resourcePathChanges", FALSE) &&
+      prefix %in% names(.globals$resourcePaths)) {
+    existingPath <- .globals$resourcePaths[[prefix]]$path
+    if (normalizedPath != existingPath) {
+      message(
+        "The resource path '", prefix, "' used to point to ",
+        existingPath, ", but it now points to ", normalizedPath, ". ",
+        "If your app doesn't work as expected, you may want to ",
+        "choose a different prefix name."
+      )
+    }
+  }
 
   # If a shiny app is currently running, dynamically register this path with
   # the corresponding httpuv server object.
