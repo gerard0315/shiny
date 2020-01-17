@@ -731,7 +731,7 @@ isRunning <- function() {
 #' @export
 runApp <- function(appDir=getwd(),
                    port=getOption('shiny.port'),
-                   pathPrefix=getOption('shiny.pathPrefix')
+                   pathPrefix=getOption('shiny.pathPrefix'),
                    launch.browser=getOption('shiny.launch.browser',
                                             interactive()),
                    host=getOption('shiny.host', '127.0.0.1'),
