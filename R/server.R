@@ -515,10 +515,14 @@ removeSubApp <- function(path) {
   handlerManager$removeWSHandler(path)
 }
 
-startApp <- function(appObj, port, host, quiet) {
+startApp <- function(appObj, port, host, quiet, pathPrefix) {
   appHandlers <- createAppHandlers(appObj$httpHandler, appObj$serverFuncSource)
   handlerManager$addHandler(appHandlers$http, "/", tail = TRUE)
   handlerManager$addWSHandler(appHandlers$ws, "/", tail = TRUE)
+  #finalPath <- paste(substr(pathPrefix, 2, nchar(pathPrefix)), sep="")
+  handlerManager$addHandler(pathPrefixHandler(pathPrefix, appHandlers$http), pathPrefix)
+  message('\n', 'path prefix attached ', pathPrefix)
+  # handlerManager$addHandler'
 
   httpuvApp <- handlerManager$createHttpuvApp()
   httpuvApp$staticPaths <- c(
@@ -727,6 +731,7 @@ isRunning <- function() {
 #' @export
 runApp <- function(appDir=getwd(),
                    port=getOption('shiny.port'),
+                   pathPrefix=getOption('shiny.pathPrefix')
                    launch.browser=getOption('shiny.launch.browser',
                                             interactive()),
                    host=getOption('shiny.host', '127.0.0.1'),
@@ -942,7 +947,7 @@ runApp <- function(appDir=getwd(),
   if (!is.null(appParts$onStart))
     appParts$onStart()
 
-  server <- startApp(appParts, port, host, quiet)
+  server <- startApp(appParts, port, host, quiet, pathPrefix)
 
   # Make the httpuv server object accessible. Needed for calling
   # addResourcePath while app is running.
@@ -1101,6 +1106,7 @@ runExample <- function(example=NA,
 #'   [`shinyApp()`][shiny] et al, or, a UI object.
 #' @param server Ignored if `app` is a Shiny app object; otherwise, passed
 #'   along to `shinyApp` (i.e. `shinyApp(ui = app, server = server)`).
+#' @param pathPrefix
 #' @param port See [`runApp()`][shiny].
 #' @param viewer Specify where the gadget should be displayed--viewer pane,
 #'   dialog window, or external browser--by passing in a call to one of the
@@ -1128,7 +1134,7 @@ runExample <- function(example=NA,
 #' runGadget(shinyApp(ui, server))
 #' }
 #' @export
-runGadget <- function(app, server = NULL, port = getOption("shiny.port"),
+runGadget <- function(app, server = NULL, pathPrefix = getOption('shiny.pathPrefix'), port = getOption("shiny.port"),
   viewer = paneViewer(), stopOnCancel = TRUE) {
 
   if (!is.shiny.appobj(app)) {
@@ -1147,7 +1153,7 @@ runGadget <- function(app, server = NULL, port = getOption("shiny.port"),
     viewer <- utils::browseURL
   }
 
-  shiny::runApp(app, port = port, launch.browser = viewer)
+  shiny::runApp(app, pathPrefix = pathPrefix, port = port, launch.browser = viewer)
 }
 
 # Add custom functionality to a Shiny app object's server func

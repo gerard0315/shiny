@@ -86,6 +86,34 @@ joinHandlers <- function(handlers) {
   }
 }
 
+pathPrefixHandler <- function(prefix, handler) {
+  force(prefix)
+  force(handler)
+
+  if (identical("", prefix))
+    return(handler)
+  
+  pathPattern <- paste("^\\Q", prefix, "\\E/", sep = "")
+  function(req) {
+    if (isTRUE(grepl(pathPattern, req$PATH_INFO))) {
+      origScript <- req$SCRIPT_NAME
+      origPath <- req$PATH_INFO
+      on.exit({
+        req$SCRIPT_NAME <- origScript
+        req$PATH_INFO <- origPath
+      }, add = TRUE)
+      pathInfo <- substr(req$PATH_INFO, nchar(prefix)+1, nchar(req$PATH_INFO))
+      req$SCRIPT_NAME <- paste(req$SCRIPT_NAME, prefix, sep = "")
+      req$PATH_INFO <- pathInfo
+      return(handler(req))
+    } else {
+      return(NULL)
+    }
+  }
+
+
+}
+
 #
 # Note that we don't have an equivalent of `joinHandlers` for wsHandlers. It's
 # easy to imagine it, we just haven't needed one.
