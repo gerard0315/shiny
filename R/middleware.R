@@ -86,6 +86,21 @@ joinHandlers <- function(handlers) {
   }
 }
 
+requestTokenHandler <- function(token, hander) {
+  force(token)
+  force(handler)
+
+  function(req) {
+    if (isTRUE(grepl(pathPattern, req$PATH_INFO))) {
+      origScript <- req$SCRIPT_NAME
+      origPath <- req$PATH_INFO
+      return(handler(req))
+    } else {
+      return(NULL)
+    }
+  }
+}
+
 pathPrefixHandler <- function(prefix, handler) {
   force(prefix)
   force(handler)
@@ -95,6 +110,7 @@ pathPrefixHandler <- function(prefix, handler) {
   
   pathPattern <- paste("^\\Q", prefix, "\\E/", sep = "")
   function(req) {
+    sprintf(req)
     if (isTRUE(grepl(pathPattern, req$PATH_INFO))) {
       origScript <- req$SCRIPT_NAME
       origPath <- req$PATH_INFO
@@ -103,6 +119,7 @@ pathPrefixHandler <- function(prefix, handler) {
         req$PATH_INFO <- origPath
       }, add = TRUE)
       pathInfo <- substr(req$PATH_INFO, nchar(prefix)+1, nchar(req$PATH_INFO))
+      sprintf(pathInfo)
       req$SCRIPT_NAME <- paste(req$SCRIPT_NAME, prefix, sep = "")
       req$PATH_INFO <- pathInfo
       return(handler(req))
