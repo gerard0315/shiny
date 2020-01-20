@@ -92,7 +92,7 @@ requestInspectHandler <- function(handler) {
   message('\n', 'inspector attached in func')
 
   function(req) {
-    message("RECV ", rawToChar(req))
+    message("RECV ", req$PATH_INFO)
     return(handler(req))
   }
 }
