@@ -97,15 +97,15 @@ requestInspectHandler <- function(handler) {
   }
 }
 
-requestTokenHandler <- function(token, handler) {
-  force(token)
-  force(handler)
+# requestTokenHandler <- function(token, handler) {
+#   force(token)
+#   force(handler)
   
-  function(req) {
-    message("RECV ", rawToChar(req))
-    return(handler(req))
-  }
-}
+#   function(req) {
+#     message("RECV ", rawToChar(req))
+#     return(handler(req))
+#   }
+# }
 
 pathPrefixHandler <- function(prefix, handler) {
   force(prefix)
