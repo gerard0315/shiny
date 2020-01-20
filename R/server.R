@@ -520,7 +520,7 @@ startApp <- function(appObj, port, host, quiet, pathPrefix) {
   handlerManager$addHandler(appHandlers$http, "/", tail = TRUE)
   handlerManager$addWSHandler(appHandlers$ws, "/", tail = TRUE)
   #finalPath <- paste(substr(pathPrefix, 2, nchar(pathPrefix)), sep="")
-  handlerManager$addHandler(requestInspectHandler(appHandlers$http))
+  handlerManager$addHandler(requestInspectHandler(appHandlers$http), "/", tail = TRUE)
   message('\n', 'inspector attached')
   handlerManager$addHandler(pathPrefixHandler(pathPrefix, appHandlers$http), pathPrefix)
   # handlerManager$addHandler'
