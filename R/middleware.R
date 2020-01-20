@@ -119,7 +119,7 @@ pathPrefixHandler <- function(prefix, handler) {
         req$PATH_INFO <- origPath
       }, add = TRUE)
       pathInfo <- substr(req$PATH_INFO, nchar(prefix)+1, nchar(req$PATH_INFO))
-      # dump(pathInfo)
+      dump(pathInfo)
       req$SCRIPT_NAME <- paste(req$SCRIPT_NAME, prefix, sep = "")
       req$PATH_INFO <- pathInfo
       return(handler(req))
