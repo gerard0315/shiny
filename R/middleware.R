@@ -167,7 +167,7 @@ pathPrefixHandler <- function(prefix, handler) {
     message("SCRIPT_NAME ", req$SCRIPT_NAME)
 
     req$PATH_INFO <- pathInfo
-    message('\n', 'path prefix attached ', pathPrefix)
+    message('\n', 'path prefix attached ', prefix)
     
     return(handler(req))
   }
