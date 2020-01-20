@@ -121,6 +121,7 @@ pathPrefixHandler <- function(prefix, handler) {
   message("pattern get ", pathPattern)
   function(req) {
      #dump(req)
+    message("req$PATH_INFO ", req$PATH_INFO)
     message("TEST ", grepl(pathPattern, req$PATH_INFO), isTRUE(grepl(pathPattern, req$PATH_INFO)))
     # if (isTRUE(grepl(pathPattern, req$PATH_INFO))) {
     #   origScript <- req$SCRIPT_NAME
