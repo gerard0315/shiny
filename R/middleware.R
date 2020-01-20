@@ -122,31 +122,53 @@ pathPrefixHandler <- function(prefix, handler) {
   function(req) {
      #dump(req)
     message("TEST ", grepl(pathPattern, req$PATH_INFO), isTRUE(grepl(pathPattern, req$PATH_INFO)))
-    if (isTRUE(grepl(pathPattern, req$PATH_INFO))) {
-      origScript <- req$SCRIPT_NAME
-      origPath <- req$PATH_INFO
-      message("origScript ", origScript)
-      message("origPath ", origPath)
+    # if (isTRUE(grepl(pathPattern, req$PATH_INFO))) {
+    #   origScript <- req$SCRIPT_NAME
+    #   origPath <- req$PATH_INFO
+    #   message("origScript ", origScript)
+    #   message("origPath ", origPath)
 
-      on.exit({
-        req$SCRIPT_NAME <- origScript
-        req$PATH_INFO <- origPath
-      }, add = TRUE)
+    #   on.exit({
+    #     req$SCRIPT_NAME <- origScript
+    #     req$PATH_INFO <- origPath
+    #   }, add = TRUE)
 
-      pathInfo <- substr(req$PATH_INFO, nchar(prefix)+1, nchar(req$PATH_INFO))
+    #   pathInfo <- substr(req$PATH_INFO, nchar(prefix)+1, nchar(req$PATH_INFO))
 
-      message("pathInfo ", pathInfo)
+    #   message("pathInfo ", pathInfo)
 
-      req$SCRIPT_NAME <- paste(req$SCRIPT_NAME, prefix, sep = "")
+    #   req$SCRIPT_NAME <- paste(req$SCRIPT_NAME, prefix, sep = "")
 
-      message("SCRIPT_NAME ", req$SCRIPT_NAME)
+    #   message("SCRIPT_NAME ", req$SCRIPT_NAME)
 
-      req$PATH_INFO <- pathInfo
-      message('\n', 'path prefix attached ', pathPrefix)
-      return(handler(req))
-    } else {
-      return(NULL)
-    }
+    #   req$PATH_INFO <- pathInfo
+    #   message('\n', 'path prefix attached ', pathPrefix)
+    #   return(handler(req))
+    # } else {
+    #   return(NULL)
+    # }
+    origScript <- req$SCRIPT_NAME
+    origPath <- req$PATH_INFO
+    message("origScript ", origScript)
+    message("origPath ", origPath)
+
+    on.exit({
+      req$SCRIPT_NAME <- origScript
+      req$PATH_INFO <- origPath
+    }, add = TRUE)
+
+    pathInfo <- substr(req$PATH_INFO, nchar(prefix)+1, nchar(req$PATH_INFO))
+
+    message("pathInfo ", pathInfo)
+
+    req$SCRIPT_NAME <- paste(req$SCRIPT_NAME, prefix, sep = "")
+
+    message("SCRIPT_NAME ", req$SCRIPT_NAME)
+
+    req$PATH_INFO <- pathInfo
+    message('\n', 'path prefix attached ', pathPrefix)
+    
+    return(handler(req))
   }
 
 
