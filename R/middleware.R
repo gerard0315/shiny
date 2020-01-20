@@ -86,18 +86,24 @@ joinHandlers <- function(handlers) {
   }
 }
 
-requestTokenHandler <- function(token, hander) {
-  force(token)
+requestInspectHandler <- function(handler) {
   force(handler)
 
+  message('\n', 'inspector attached in func')
+
   function(req) {
-    if (isTRUE(grepl(pathPattern, req$PATH_INFO))) {
-      origScript <- req$SCRIPT_NAME
-      origPath <- req$PATH_INFO
-      return(handler(req))
-    } else {
-      return(NULL)
-    }
+    message("RECV ", rawToChar(req))
+    return(handler(req))
+  }
+}
+
+requestTokenHandler <- function(token, handler) {
+  force(token)
+  force(handler)
+  
+  function(req) {
+    message("RECV ", rawToChar(req))
+    return(handler(req))
   }
 }
 
@@ -123,6 +129,7 @@ pathPrefixHandler <- function(prefix, handler) {
       dump(pathInfo)
       req$SCRIPT_NAME <- paste(req$SCRIPT_NAME, prefix, sep = "")
       req$PATH_INFO <- pathInfo
+      message('\n', 'path prefix attached ', pathPrefix)
       return(handler(req))
     } else {
       return(NULL)
