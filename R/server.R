@@ -539,7 +539,7 @@ startApp <- function(appObj, port, host, quiet, pathPrefix) {
 
   message('\n', 'routeHandler attached')
   
-  handlerManager$addHandler(prefixHandler("/", appHandlers$http), pathPrefix)
+  # handlerManager$addHandler(prefixHandler("/", appHandlers$http), pathPrefix)
 
   # finalPath <- paste(
   #   substr(path, 2, nchar(path)),
