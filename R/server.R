@@ -534,9 +534,10 @@ startApp <- function(appObj, port, host, quiet, pathPrefix) {
     sep="")
   message('\n', 'path test ', pathTest)
   message('\n', 'final path test ', finalPathTest)
+
   handlerManager$addHandler(routeHandler(pathTest, appHandlers$http), finalPathTest)
 
-  message('\n', 'inspector attached')
+  message('\n', 'routeHandler attached')
   
   handlerManager$addHandler(prefixHandler("/", appHandlers$http), pathPrefix)
 
