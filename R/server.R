@@ -521,17 +521,30 @@ startApp <- function(appObj, port, host, quiet, pathPrefix) {
   handlerManager$addWSHandler(appHandlers$ws, "/", tail = TRUE)
   #finalPath <- paste(substr(pathPrefix, 2, nchar(pathPrefix)), sep="")
   handlerManager$addHandler(requestInspectHandler(appHandlers$http), "", tail = TRUE)
-  message('\n', 'inspector attached')
 
+  pathTest <- createUniqueId(16, "/app")
+
+  # remove the leading / from the path so a relative path is returned
+  # (needed for the case where the root URL for the Shiny app isn't /, such
+  # as portmapped URLs)
+  finalPathTest <- paste(
+    substr(pathTest, 2, nchar(pathTest)),
+    "/?w=", workerId(),
+    "&__subapp__=1",
+    sep="")
+  message('\n', 'path test ', pathTest)
+  message('\n', 'final path test ', finalPathTest)
+
+  message('\n', 'inspector attached')
 
   finalPath <- paste(
     substr(path, 2, nchar(path)),
     sep="")
   message('\n', 'final path attached', finalPath)
-  handlerManager$addHandler(routeHandler(path, appHandlers$http), finalPath)
+  handlerManager$addHandler(routeHandler(pathPrefix, appHandlers$http), finalPath)
 
   handlerManager$addHandler(pathPrefixHandler(pathPrefix, appHandlers$http), pathPrefix)
-  
+
   # handlerManager$addHandler'
 
   httpuvApp <- handlerManager$createHttpuvApp()
