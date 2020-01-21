@@ -120,19 +120,20 @@ prefixHandler <- function(prefix, handler) {
 
   pathPattern <- paste("^\\Q", prefix, "\\E/", sep = "")
   message('\n', 'pathPattern', pathPattern)
-  message('\n', 'req$PATH_INFO', req$PATH_INFO)
-  message('\n', 'regex', grepl(pathPattern, req$PATH_INFO))
+  
   function(req) {
+    message('\n', 'req$PATH_INFO', req$PATH_INFO)
+    message('\n', 'regex', grepl(pathPattern, req$PATH_INFO))
     origScript <- req$SCRIPT_NAME
-      origPath <- req$PATH_INFO
-      on.exit({
-        req$SCRIPT_NAME <- origScript
-        req$PATH_INFO <- origPath
-      }, add = TRUE)
-      pathInfo <- substr(req$PATH_INFO, nchar(prefix)+1, nchar(req$PATH_INFO))
-      req$SCRIPT_NAME <- paste(req$SCRIPT_NAME, prefix, sep = "")
-      req$PATH_INFO <- pathInfo
-      return(handler(req))
+    origPath <- req$PATH_INFO
+    on.exit({
+      req$SCRIPT_NAME <- origScript
+      req$PATH_INFO <- origPath
+    }, add = TRUE)
+    pathInfo <- substr(req$PATH_INFO, nchar(prefix)+1, nchar(req$PATH_INFO))
+    req$SCRIPT_NAME <- paste(req$SCRIPT_NAME, prefix, sep = "")
+    req$PATH_INFO <- pathInfo
+    return(handler(req))
   }
 }
 
