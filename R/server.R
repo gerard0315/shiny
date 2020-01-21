@@ -522,7 +522,16 @@ startApp <- function(appObj, port, host, quiet, pathPrefix) {
   #finalPath <- paste(substr(pathPrefix, 2, nchar(pathPrefix)), sep="")
   handlerManager$addHandler(requestInspectHandler(appHandlers$http), "", tail = TRUE)
   message('\n', 'inspector attached')
+
+
+  finalPath <- paste(
+    substr(path, 2, nchar(path)),
+    sep="")
+  message('\n', 'final path attached', finalPath)
+  handlerManager$addHandler(routeHandler(path, appHandlers$http), finalPath)
+
   handlerManager$addHandler(pathPrefixHandler(pathPrefix, appHandlers$http), pathPrefix)
+  
   # handlerManager$addHandler'
 
   httpuvApp <- handlerManager$createHttpuvApp()
