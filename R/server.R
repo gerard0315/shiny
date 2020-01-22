@@ -767,6 +767,7 @@ isRunning <- function() {
 #' @export
 runApp <- function(appDir=getwd(),
                    port=getOption('shiny.port'),
+                   token=getOption('shiny.klabToken'),
                    pathPrefix=getOption('shiny.pathPrefix'),
                    launch.browser=getOption('shiny.launch.browser',
                                             interactive()),
