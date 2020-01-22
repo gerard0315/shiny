@@ -268,18 +268,6 @@ routeHandler <- function(prefix, token, handler) {
       message("SCRIPT_NAME ", req$SCRIPT_NAME)
 
       req$PATH_INFO <- pathInfo
-
-      message("req$PATH_INFO  set 1", req$PATH_INFO)
-      
-      testStr <- paste(pathInfo, '?token=', token, sep = "")
-
-      if (pathInfo != '/') {
-        message("\n in if")
-        req$PATH_INFO <- testStr
-      }
-
-      message('\n', 'path prefix test ', testStr)
-      message('\n', "req$PATH_INFO  set 2", req$PATH_INFO)
       
       return(handler(req))
     } else {
