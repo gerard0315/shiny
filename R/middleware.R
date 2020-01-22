@@ -267,7 +267,8 @@ routeHandler <- function(prefix, token, handler) {
 
       message("SCRIPT_NAME ", req$SCRIPT_NAME)
 
-      req$PATH_INFO <- paste(req$SCRIPT_NAME, prefix, "/?token=", token, sep = "")
+      req$PATH_INFO <- paste(req$SCRIPT_NAME, prefix, sep = "")
+      # req$PATH_INFO <- paste(req$SCRIPT_NAME, prefix, '/?token=', token, sep = "")
 
       message('\n', 'path prefix attached ', req$PATH_INFO)
       
