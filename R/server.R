@@ -531,14 +531,15 @@ startApp <- function(appObj, port, host, quiet, pathPrefix) {
     substr(pathPrefix, 2, nchar(pathPrefix)),
     "/tensorboard/",
     sep="")
+    
   message('\n', 'path test ', pathPrefix)
   message('\n', 'final path test ', finalPathTest)
 
-  # handlerManager$addHandler(routeHandler(pathTest, appHandlers$http), finalPathTest)
+  handlerManager$addHandler(routeHandler(pathPrefix, appHandlers$http), finalPathTest)
 
   message('\n', 'routeHandler attached')
   
-  handlerManager$addHandler(prefixHandler(pathPrefix, appHandlers$http), finalPathTest)
+  # handlerManager$addHandler(prefixHandler(pathPrefix, appHandlers$http), finalPathTest)
 
   # finalPath <- paste(
   #   substr(path, 2, nchar(path)),
