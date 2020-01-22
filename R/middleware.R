@@ -228,9 +228,12 @@ pathPrefixHandler <- function(prefix, handler) {
 # (BTW, it's safe for `routeHandler` calls to nest.)
 #
 ## ------------------------------------------------------------------------
-routeHandler <- function(prefix, handler) {
+routeHandler <- function(prefix, token, handler) {
   force(prefix)
+  force(token)
   force(handler)
+
+  message('\n', 'token get', token)
 
   if (identical("", prefix))
     return(handler)
@@ -264,7 +267,7 @@ routeHandler <- function(prefix, handler) {
 
       message("SCRIPT_NAME ", req$SCRIPT_NAME)
 
-      req$PATH_INFO <- pathInfo
+      req$PATH_INFO <- paste(req$SCRIPT_NAME, prefix, "?token=", token, sep = "")
 
       message('\n', 'path prefix attached ', req$PATH_INFO)
       
