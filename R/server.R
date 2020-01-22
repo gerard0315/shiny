@@ -984,7 +984,7 @@ runApp <- function(appDir=getwd(),
   if (!is.null(appParts$onStart))
     appParts$onStart()
 
-  server <- startApp(appParts, port, host, quiet, pathPrefix)
+  server <- startApp(appParts, port, host, quiet, pathPrefix, token)
 
   # Make the httpuv server object accessible. Needed for calling
   # addResourcePath while app is running.
