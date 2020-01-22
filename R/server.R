@@ -527,11 +527,13 @@ startApp <- function(appObj, port, host, quiet, pathPrefix) {
   # remove the leading / from the path so a relative path is returned
   # (needed for the case where the root URL for the Shiny app isn't /, such
   # as portmapped URLs)
+  message('\n', 'get prefix', pathPrefix)
+
   finalPathTest <- paste(
     substr(pathPrefix, 2, nchar(pathPrefix)),
     "/tensorboard/",
     sep="")
-    
+
   message('\n', 'path test ', pathPrefix)
   message('\n', 'final path test ', finalPathTest)
 
