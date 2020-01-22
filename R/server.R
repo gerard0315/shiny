@@ -531,7 +531,6 @@ startApp <- function(appObj, port, host, quiet, pathPrefix) {
 
   finalPathTest <- paste(
     substr(pathPrefix, 2, nchar(pathPrefix)),
-    "/tensorboard/",
     sep="")
 
   message('\n', 'path test ', pathPrefix)
