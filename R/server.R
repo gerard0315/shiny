@@ -515,7 +515,7 @@ removeSubApp <- function(path) {
   handlerManager$removeWSHandler(path)
 }
 
-startApp <- function(appObj, port, host, quiet, pathPrefix) {
+startApp <- function(appObj, port, host, quiet, pathPrefix, token) {
   appHandlers <- createAppHandlers(appObj$httpHandler, appObj$serverFuncSource)
   handlerManager$addHandler(appHandlers$http, "/", tail = TRUE)
   handlerManager$addWSHandler(appHandlers$ws, "/", tail = TRUE)
@@ -529,22 +529,23 @@ startApp <- function(appObj, port, host, quiet, pathPrefix) {
   # as portmapped URLs)
   message('\n', 'get prefix', pathPrefix)
 
-  # finalPathTest <- paste(
-  #   substr(pathPrefix, 2, nchar(pathPrefix)),
-  #   sep="")
-
-  finalPath <- paste(
-    substr(path, 2, nchar(path)),
-    "/?w=", workerId(),
-    "&__subapp__=1",
+  finalPathTest <- paste(
+    substr(pathPrefix, 2, nchar(pathPrefix)),
+    "/?token=", token,
     sep="")
 
-  handlerManager$addHandler(routeHandler(path, appHandlers$http), finalPath)
+  # finalPath <- paste(
+  #   substr(path, 2, nchar(path)),
+  #   "/?w=", workerId(),
+  #   "&__subapp__=1",
+  #   sep="")
 
-  message('\n', 'path test ', path)
-  message('\n', 'final path test ', finalPath)
+  # handlerManager$addHandler(routeHandler(path, appHandlers$http), finalPath)
 
-  # handlerManager$addHandler(routeHandler(pathPrefix, appHandlers$http), finalPathTest)
+  message('\n', 'path test ', pathPrefix)
+  message('\n', 'final path test ', finalPathTest)
+
+  handlerManager$addHandler(routeHandler(pathPrefix, appHandlers$http), finalPathTest)
 
   message('\n', 'routeHandler attached')
   
@@ -1169,8 +1170,13 @@ runExample <- function(example=NA,
 #' runGadget(shinyApp(ui, server))
 #' }
 #' @export
-runGadget <- function(app, server = NULL, pathPrefix = getOption('shiny.pathPrefix'), port = getOption("shiny.port"),
-  viewer = paneViewer(), stopOnCancel = TRUE) {
+runGadget <- function(app,
+                      server = NULL,
+                      pathPrefix = getOption('shiny.pathPrefix'),
+                      token = getOption('shiny.klabToken'),
+                      port = getOption("shiny.port"),
+                      viewer = paneViewer(),
+                      stopOnCancel = TRUE) {
 
   if (!is.shiny.appobj(app)) {
     app <- shinyApp(app, server)
@@ -1188,7 +1194,7 @@ runGadget <- function(app, server = NULL, pathPrefix = getOption('shiny.pathPref
     viewer <- utils::browseURL
   }
 
-  shiny::runApp(app, pathPrefix = pathPrefix, port = port, launch.browser = viewer)
+  shiny::runApp(app, token = token, pathPrefix = pathPrefix, port = port, launch.browser = viewer)
 }
 
 # Add custom functionality to a Shiny app object's server func
