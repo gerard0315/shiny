@@ -270,7 +270,7 @@ routeHandler <- function(prefix, token, handler) {
       req$PATH_INFO <- pathInfo
       testStr <- paste(pathInfo, prefix, '/?token=', token, sep = "")
 
-      message('\n', 'path prefix test ', req$PATH_INFO)
+      message('\n', 'path prefix test ', testStr)
       
       return(handler(req))
     } else {
