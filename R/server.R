@@ -546,19 +546,9 @@ startApp <- function(appObj, port, host, quiet, pathPrefix, token) {
   message('\n', 'final path test ', finalPathTest)
 
   handlerManager$addHandler(routeHandler(pathPrefix, token, appHandlers$http), finalPathTest)
+  handlerManager$addWSHandler(routeHandler(pathPrefix, token, appHandlers$http), finalPathTest)
 
   message('\n', 'routeHandler attached')
-  
-  # handlerManager$addHandler(prefixHandler(pathPrefix, appHandlers$http), finalPathTest)
-
-  # finalPath <- paste(
-  #   substr(path, 2, nchar(path)),
-  #   sep="")
-  # message('\n', 'final path attached', finalPath)
-
-  # handlerManager$addHandler(pathPrefixHandler(pathPrefix, appHandlers$http), pathPrefix)
-
-  # handlerManager$addHandler'
 
   httpuvApp <- handlerManager$createHttpuvApp()
   httpuvApp$staticPaths <- c(
@@ -630,6 +620,7 @@ startApp <- function(appObj, port, host, quiet, pathPrefix, token) {
       if (httpuv::ipFamily(host) == 6L)
         hostString <- paste0("[", hostString, "]")
       message('\n', 'Shiny in K-Lab, Listening on http://', hostString, ':', port)
+      message('\n', 'Shiny 地址: ', 'https://cn-northwest-1-aws-proxy-staging.kesci.com', pathPrefix, '/?token=', token)
     }
     return(startServer(host, port, httpuvApp))
   } else if (is.character(port)) {
