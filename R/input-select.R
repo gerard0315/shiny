@@ -184,22 +184,22 @@ selectizeInput <- function(inputId, ..., options = NULL, width = NULL) {
 # given a select input and its id, selectize it
 selectizeIt <- function(inputId, select, options, nonempty = FALSE) {
   res <- checkAsIs(options)
-
+  token <- getOption('shiny.klabToken')
   selectizeDep <- htmlDependency(
     "selectize", "0.11.2", c(href = "shared/selectize"),
     stylesheet = "css/selectize.bootstrap3.css",
     head = format(tagList(
       HTML('<!--[if lt IE 9]>'),
-      tags$script(src = 'shared/selectize/js/es5-shim.min.js'),
+      tags$script(src = 'shared/selectize/js/es5-shim.min.js?token=' + token),
       HTML('<![endif]-->'),
-      tags$script(src = 'shared/selectize/js/selectize.min.js')
+      tags$script(src = 'shared/selectize/js/selectize.min.js?token=' + token)
     ))
   )
 
   if ('drag_drop' %in% options$plugins) {
     selectizeDep <- list(selectizeDep, htmlDependency(
       'jqueryui', '1.12.1', c(href = 'shared/jqueryui'),
-      script = 'jquery-ui.min.js'
+      script = 'jquery-ui.min.js?token=' + token
     ))
   }
 

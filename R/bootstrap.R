@@ -60,18 +60,19 @@ bootstrapPage <- function(..., title = NULL, responsive = NULL, theme = NULL) {
 #' @inheritParams bootstrapPage
 #' @export
 bootstrapLib <- function(theme = NULL) {
+  token <- getOption('shiny.klabToken')
   htmlDependency("bootstrap", "3.4.1",
     c(
       href = "shared/bootstrap",
       file = system.file("www/shared/bootstrap", package = "shiny")
     ),
     script = c(
-      "js/bootstrap.min.js",
+      "js/bootstrap.min.js?token=" + token,
       # These shims are necessary for IE 8 compatibility
-      "shim/html5shiv.min.js",
-      "shim/respond.min.js"
+      "shim/html5shiv.min.js?token=" + token,
+      "shim/respond.min.js?token=" + token
     ),
-    stylesheet = if (is.null(theme)) "css/bootstrap.min.css",
+    stylesheet = if (is.null(theme)) "css/bootstrap.min.css?token=" + token,
     meta = list(viewport = "width=device-width, initial-scale=1")
   )
 }
@@ -1238,6 +1239,8 @@ tableOutput <- function(outputId) {
   div(id = outputId, class="shiny-html-output")
 }
 
+token <- getOption('shiny.klabToken')
+
 dataTableDependency <- list(
   htmlDependency(
     "datatables", "1.10.5", c(href = "shared/datatables"),
@@ -1245,8 +1248,8 @@ dataTableDependency <- list(
   ),
   htmlDependency(
     "datatables-bootstrap", "1.10.5", c(href = "shared/datatables"),
-    stylesheet = c("css/dataTables.bootstrap.css", "css/dataTables.extra.css"),
-    script = "js/dataTables.bootstrap.js"
+    stylesheet = c("css/dataTables.bootstrap.css?token=" + token, "css/dataTables.extra.css?token=" + token),
+    script = "js/dataTables.bootstrap.js?token=" + token
   )
 )
 
@@ -1412,14 +1415,14 @@ icon <- function(name, class = NULL, lib = "font-awesome") {
     iconClass <- paste(iconClass, class)
 
   iconTag <- tags$i(class = iconClass)
-
+  token <- getOption('shiny.klabToken')
   # font-awesome needs an additional dependency (glyphicon is in bootstrap)
   if (lib == "font-awesome") {
     htmlDependencies(iconTag) <- htmlDependency(
       "font-awesome", "5.3.1", "www/shared/fontawesome", package = "shiny",
       stylesheet = c(
-        "css/all.min.css",
-        "css/v4-shims.min.css"
+        "css/all.min.css?token=" + token,
+        "css/v4-shims.min.css?token=" + token
       )
     )
   }

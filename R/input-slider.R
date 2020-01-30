@@ -205,16 +205,18 @@ sliderInput <- function(inputId, label, min, max, value, step = NULL,
     )
   }
 
+  token <- getOption('shiny.klabToken')
+
   dep <- list(
     htmlDependency("ionrangeslider", "2.1.6", c(href="shared/ionrangeslider"),
-      script = "js/ion.rangeSlider.min.js",
+      script = "js/ion.rangeSlider.min.js?token=" + token,
       # ion.rangeSlider also needs normalize.css, which is already included in
       # Bootstrap.
-      stylesheet = c("css/ion.rangeSlider.css",
-                     "css/ion.rangeSlider.skinShiny.css")
+      stylesheet = c("css/ion.rangeSlider.css?token=" + token,
+                     "css/ion.rangeSlider.skinShiny.css?token=" + token)
     ),
     htmlDependency("strftime", "0.9.2", c(href="shared/strftime"),
-      script = "strftime-min.js"
+      script = "strftime-min.js?token=" + token
     )
   )
 
