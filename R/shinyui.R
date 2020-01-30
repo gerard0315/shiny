@@ -49,14 +49,14 @@ renderPage <- function(ui, connection, showcase=0, testMode=FALSE) {
       return(htmlDependency(
         "jquery", "3.4.1",
         c(href = "shared"),
-        script = "jquery.min.js?token=" + token
+        script = paste("jquery.min.js?token=", token, sep="")
       ))
     }
     if (version == 1) {
       return(htmlDependency(
         "jquery", "1.12.4",
         c(href = "shared/legacy"),
-        script = "jquery.min.js?token=" + token
+        script = paste("jquery.min.js?token=", token, sep="")
       ))
     }
     stop("Unsupported version of jQuery: ", version)
@@ -66,8 +66,8 @@ renderPage <- function(ui, connection, showcase=0, testMode=FALSE) {
     htmlDependency("json2", "2014.02.04", c(href="shared"), script = "json2-min.js"),
     jquery(),
     htmlDependency("shiny", utils::packageVersion("shiny"), c(href="shared"),
-      script = if (getOption("shiny.minified", TRUE)) "shiny.min.js?token=" + token else "shiny.js?token=" + token,
-      stylesheet = "shiny.css?token=" + token)
+      script = if (getOption("shiny.minified", TRUE)) paste("shiny.min.js?token=", token, sep="") else paste("shiny.js?token=", token, sep=""),
+      stylesheet = paste("shiny.css?token=", token, sep=""))
   )
 
   if (testMode) {
