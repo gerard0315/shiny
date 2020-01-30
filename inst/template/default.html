@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.js"></script>
 {{ headContent() }}
 </head>
 {{ body }}
 </html>
 <script>
   console.log('loadded html default')
+  function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
+  }
+  var token = getQueryString("token")
+  console.log('token fetched', token);
+  $.ajaxSetup({
+        beforeSend: function(jqXHR, settings) {
+            //在请求前给修改url（增加一个时间戳参数）
+            settings.url += settings.url.match(/\?/) ? "&" : "?";
+            settings.url += "token=" + token;
+        },
+      });
 </script>
