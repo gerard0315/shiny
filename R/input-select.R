@@ -190,16 +190,16 @@ selectizeIt <- function(inputId, select, options, nonempty = FALSE) {
     stylesheet = "css/selectize.bootstrap3.css",
     head = format(tagList(
       HTML('<!--[if lt IE 9]>'),
-      tags$script(src = 'shared/selectize/js/es5-shim.min.js?token=' + token),
+      tags$script(src = 'shared/selectize/js/es5-shim.min.js'),
       HTML('<![endif]-->'),
-      tags$script(src = 'shared/selectize/js/selectize.min.js?token=' + token)
+      tags$script(src = 'shared/selectize/js/selectize.min.js')
     ))
   )
 
   if ('drag_drop' %in% options$plugins) {
     selectizeDep <- list(selectizeDep, htmlDependency(
       'jqueryui', '1.12.1', c(href = 'shared/jqueryui'),
-      script = 'jquery-ui.min.js?token=' + token
+      script = 'jquery-ui.min.js'
     ))
   }
 

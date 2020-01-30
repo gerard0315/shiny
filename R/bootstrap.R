@@ -67,12 +67,12 @@ bootstrapLib <- function(theme = NULL) {
       file = system.file("www/shared/bootstrap", package = "shiny")
     ),
     script = c(
-      "js/bootstrap.min.js?token=" + token,
+      "js/bootstrap.min.js",
       # These shims are necessary for IE 8 compatibility
-      "shim/html5shiv.min.js?token=" + token,
-      "shim/respond.min.js?token=" + token
+      "shim/html5shiv.min.js",
+      "shim/respond.min.js"
     ),
-    stylesheet = if (is.null(theme)) "css/bootstrap.min.css?token=" + token,
+    stylesheet = if (is.null(theme)) "css/bootstrap.min.css",
     meta = list(viewport = "width=device-width, initial-scale=1")
   )
 }
@@ -1248,8 +1248,8 @@ dataTableDependency <- list(
   ),
   htmlDependency(
     "datatables-bootstrap", "1.10.5", c(href = "shared/datatables"),
-    stylesheet = c("css/dataTables.bootstrap.css?token=" + token, "css/dataTables.extra.css?token=" + token),
-    script = "js/dataTables.bootstrap.js?token=" + token
+    stylesheet = c("css/dataTables.bootstrap.css", "css/dataTables.extra.css"),
+    script = "js/dataTables.bootstrap.js"
   )
 )
 
@@ -1421,8 +1421,8 @@ icon <- function(name, class = NULL, lib = "font-awesome") {
     htmlDependencies(iconTag) <- htmlDependency(
       "font-awesome", "5.3.1", "www/shared/fontawesome", package = "shiny",
       stylesheet = c(
-        "css/all.min.css?token=" + token,
-        "css/v4-shims.min.css?token=" + token
+        "css/all.min.css",
+        "css/v4-shims.min.css"
       )
     )
   }
