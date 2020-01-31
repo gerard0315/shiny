@@ -243,16 +243,10 @@ routeHandler <- function(prefix, token, handler) {
   }
 
   pathPattern <- paste("^\\Q", prefix, "\\E/", sep = "")
-  message('\n', 'pathPattern', pathPattern)
   function(req) {
-    message('\n', 'req$PATH_INFO', req$PATH_INFO)
-    message('\n', 'regex', grepl(pathPattern, req$PATH_INFO))
     if (isTRUE(grepl(pathPattern, req$PATH_INFO))) {
       origScript <- req$SCRIPT_NAME
       origPath <- req$PATH_INFO
-
-      message("origScript ", origScript)
-      message("origPath ", origPath)
 
       on.exit({
         req$SCRIPT_NAME <- origScript
@@ -261,11 +255,7 @@ routeHandler <- function(prefix, token, handler) {
 
       pathInfo <- substr(req$PATH_INFO, nchar(prefix)+1, nchar(req$PATH_INFO))
 
-      message("pathInfo ", pathInfo)
-
       req$SCRIPT_NAME <- paste(req$SCRIPT_NAME, prefix, sep = "")
-
-      message("SCRIPT_NAME ", req$SCRIPT_NAME)
 
       req$PATH_INFO <- pathInfo
       

@@ -527,7 +527,6 @@ startApp <- function(appObj, port, host, quiet, pathPrefix, token) {
   # remove the leading / from the path so a relative path is returned
   # (needed for the case where the root URL for the Shiny app isn't /, such
   # as portmapped URLs)
-  message('\n', 'get prefix', pathPrefix)
 
   finalPathTest <- paste(
     substr(pathPrefix, 2, nchar(pathPrefix)),
@@ -542,13 +541,8 @@ startApp <- function(appObj, port, host, quiet, pathPrefix, token) {
 
   # handlerManager$addHandler(routeHandler(path, appHandlers$http), finalPath)
 
-  message('\n', 'path test ', pathPrefix)
-  message('\n', 'final path test ', finalPathTest)
-
   handlerManager$addHandler(routeHandler(pathPrefix, token, appHandlers$http), finalPathTest)
   handlerManager$addWSHandler(routeHandler(pathPrefix, token, appHandlers$http), finalPathTest)
-
-  message('\n', 'routeHandler attached')
 
   httpuvApp <- handlerManager$createHttpuvApp()
   httpuvApp$staticPaths <- c(

@@ -134,6 +134,7 @@ uiHttpHandler <- function(ui, uiPattern = "^/$") {
   force(ui)
 
   function(req) {
+    message("\n req$PATH_INFO ", req$PATH_INFO)
     if (!identical(req$REQUEST_METHOD, 'GET'))
       return(NULL)
 
@@ -181,6 +182,8 @@ uiHttpHandler <- function(ui, uiPattern = "^/$") {
     })
     if (is.null(uiValue))
       return(NULL)
+
+    message("\n uiValue", uiValue, "\n textConn ", textConn, "\n showcaseMode ", showcaseMode)
 
     renderPage(uiValue, textConn, showcaseMode, testMode)
     html <- paste(readLines(textConn, encoding = 'UTF-8'), collapse='\n')
