@@ -1241,16 +1241,27 @@ tableOutput <- function(outputId) {
 
 token <- getOption('shiny.klabToken')
 
+# https://cdn.staticfile.org/datatables/1.10.5/js/jquery.dataTables.min.js
 dataTableDependency <- list(
   htmlDependency(
-    "datatables", "1.10.5", c(href = "shared/datatables"),
+    "datatables", "1.10.5", c(href = "https://cdn.staticfile.org/datatables/1.10.5"),
     script = "js/jquery.dataTables.min.js"
   ),
+  # https://cdn.staticfile.org/datatables/1.10.8/js/dataTables.bootstrap.js
   htmlDependency(
-    "datatables-bootstrap", "1.10.5", c(href = "shared/datatables"),
-    stylesheet = c("css/dataTables.bootstrap.css", "css/dataTables.extra.css"),
+    "datatables-bootstrap", "1.10.8", c(href = "https://cdn.staticfile.org/datatables/1.10.8"),
+    stylesheet = "css/dataTables.bootstrap.css",
     script = "js/dataTables.bootstrap.js"
+  ),
+  htmlDependency(
+    "datatables-bootstrap", "1.10.8", c(href = "https://cdn.kesci.com/q4z59psra"),
+    stylesheet = "dataTables.extra.css",
   )
+  # htmlDependency(
+  #   "datatables-bootstrap", "1.10.5", c(href = "shared/datatables"),
+  #   stylesheet = c("css/dataTables.bootstrap.css", "css/dataTables.extra.css"),
+  #   script = "js/dataTables.bootstrap.js"
+  # )
 )
 
 #' @rdname tableOutput
@@ -1417,14 +1428,23 @@ icon <- function(name, class = NULL, lib = "font-awesome") {
   iconTag <- tags$i(class = iconClass)
   token <- getOption('shiny.klabToken')
   # font-awesome needs an additional dependency (glyphicon is in bootstrap)
+
+  # https://cdn.staticfile.org/font-awesome/5.3.1/css/all.css
   if (lib == "font-awesome") {
     htmlDependencies(iconTag) <- htmlDependency(
-      "font-awesome", "5.3.1", "www/shared/fontawesome", package = "shiny",
+      "font-awesome", "5.3.1", c(href = "https://cdn.staticfile.org/font-awesome/5.3.1"),
       stylesheet = c(
         "css/all.min.css",
         "css/v4-shims.min.css"
       )
     )
+    # htmlDependencies(iconTag) <- htmlDependency(
+    #   "font-awesome", "5.3.1", "www/shared/fontawesome", package = "shiny",
+    #   stylesheet = c(
+    #     "css/all.min.css",
+    #     "css/v4-shims.min.css"
+    #   )
+    # )
   }
 
   htmltools::browsable(iconTag)
