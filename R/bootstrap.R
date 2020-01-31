@@ -27,7 +27,7 @@ NULL
 #' @seealso [fluidPage()], [fixedPage()]
 #' @export
 bootstrapPage <- function(..., title = NULL, responsive = NULL, theme = NULL) {
-
+  message("\n", "bootstrapPage", title, responsive, theme)
   if (!is.null(responsive)) {
     shinyDeprecated("The 'responsive' argument is no longer used with Bootstrap 3.")
   }
@@ -44,6 +44,7 @@ bootstrapPage <- function(..., title = NULL, responsive = NULL, theme = NULL) {
     ),
     bootstrapLib()
   )
+  message("\n", "attachDependencies")
 }
 
 #' Bootstrap libraries
@@ -92,6 +93,7 @@ bootstrapLib <- function(theme = NULL) {
 #' @rdname bootstrapPage
 #' @export
 basicPage <- function(...) {
+  message("\n", "basic page")
   bootstrapPage(div(class="container-fluid", list(...)))
 }
 
@@ -170,7 +172,7 @@ basicPage <- function(...) {
 #' @export
 fillPage <- function(..., padding = 0, title = NULL, bootstrap = TRUE,
   theme = NULL) {
-
+  message("\n", "fill page")
   fillCSS <- tags$head(tags$style(type = "text/css",
     "html, body { width: 100%; height: 100%; overflow: hidden; }",
     sprintf("body { padding: %s; margin: 0; }", collapseSizes(padding))
@@ -287,6 +289,7 @@ navbarPage <- function(title,
     collapsible <- collapsable
   }
 
+  message("\n", "navbar page")
   # alias title so we can avoid conflicts w/ title in withTags
   pageTitle <- title
 
