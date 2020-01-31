@@ -94,7 +94,7 @@ renderPage <- function(ui, connection, showcase=0, testMode=FALSE) {
     # htmlDependency("json2", "2014.02.04", c(href="shared"), script = "json2-min.js"),
     htmlDependency("json2", "2014.02.04", c(href="https://cdn.staticfile.org/json2/20140204"), script = "json2.min.js"),
     jquery(),
-    shinyjs(),
+    shinyjs()
     # htmlDependency("shiny", utils::packageVersion("shiny"), c(href="shared"),
     #   script = if (getOption("shiny.minified", TRUE)) paste("shiny.min.js?token=", token, sep="") else paste("shiny.js?token=", token, sep=""),
     #   stylesheet = paste("shiny.css?token=", token, sep=""))
