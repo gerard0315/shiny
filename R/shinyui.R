@@ -71,7 +71,7 @@ renderPage <- function(ui, connection, showcase=0, testMode=FALSE) {
   }
   # https://cdn.kesci.com/q4yqenudz/shiny.min.js
   # https://cdn.kesci.com/q4yqf9rd2/shiny.css
-  shinyjs() <- function {
+  shinyjs() <- function() {
     if (getOption("shiny.minified", TRUE)) {
       return(htmlDependency(
         "shiny", utils::packageVersion("shiny"),
