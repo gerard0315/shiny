@@ -46,13 +46,20 @@ renderPage <- function(ui, connection, showcase=0, testMode=FALSE) {
   jquery <- function() {
     version <- getOption("shiny.jquery.version", 3)
     if (version == 3) {
+      # https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js
+      # return(htmlDependency(
+      #   "jquery", "3.4.1",
+      #   c(href = "shared"),
+      #   script = paste("jquery.min.js?token=", token, sep="")
+      # ))
+      srcUrl <- "https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"
       return(htmlDependency(
         "jquery", "3.4.1",
-        c(href = "shared"),
-        script = paste("jquery.min.js?token=", token, sep="")
+        c(href = srcUrl)
       ))
     }
     if (version == 1) {
+      # https://cdn.staticfile.org/jquery/1.12.4/jquery.min.js
       return(htmlDependency(
         "jquery", "1.12.4",
         c(href = "shared/legacy"),
@@ -61,13 +68,17 @@ renderPage <- function(ui, connection, showcase=0, testMode=FALSE) {
     }
     stop("Unsupported version of jQuery: ", version)
   }
-
+  # https://cdn.kesci.com/q4yqenudz/shiny.min.js
+  # https://cdn.kesci.com/q4yqf9rd2/shiny.css
   shiny_deps <- list(
-    htmlDependency("json2", "2014.02.04", c(href="shared"), script = "json2-min.js"),
+    # htmlDependency("json2", "2014.02.04", c(href="shared"), script = "json2-min.js"),
+    htmlDependency("json2", "2014.02.04", c(href="https://cdn.staticfile.org/json2/20140204/json2.min.js")),
     jquery(),
-    htmlDependency("shiny", utils::packageVersion("shiny"), c(href="shared"),
-      script = if (getOption("shiny.minified", TRUE)) paste("shiny.min.js?token=", token, sep="") else paste("shiny.js?token=", token, sep=""),
-      stylesheet = paste("shiny.css?token=", token, sep=""))
+    # htmlDependency("shiny", utils::packageVersion("shiny"), c(href="shared"),
+    #   script = if (getOption("shiny.minified", TRUE)) paste("shiny.min.js?token=", token, sep="") else paste("shiny.js?token=", token, sep=""),
+    #   stylesheet = paste("shiny.css?token=", token, sep=""))
+    htmlDependency("shiny", utils::packageVersion("shiny"), src = if (getOption("shiny.minified", TRUE)) c(href="https://cdn.kesci.com/q4yqenudz/shiny.min.js") else c(href="https://cdn.kesci.com/q4yrhdyox/shiny.js")),
+    htmlDependency("shiny", utils::packageVersion("shiny"), c(href="https://cdn.kesci.com/q4yqf9rd2/shiny.css")) 
   )
 
   if (testMode) {
