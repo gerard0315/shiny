@@ -71,14 +71,30 @@ renderPage <- function(ui, connection, showcase=0, testMode=FALSE) {
   }
   # https://cdn.kesci.com/q4yqenudz/shiny.min.js
   # https://cdn.kesci.com/q4yqf9rd2/shiny.css
+  shinyjs() <- function {
+    if (getOption("shiny.minified", TRUE)) {
+      return(htmlDependency(
+        "shiny", utils::packageVersion("shiny"),
+        c(href = "https://cdn.kesci.com/q4yqenudz"),
+        script = "jquery.min.js"
+      ))
+    } else {
+      return(htmlDependency(
+        "shiny", utils::packageVersion("shiny"),
+        c(href = "https://cdn.kesci.com/q4yrhdyox"),
+        script = "jquery.js"
+      ))
+    }
+  }
+
   shiny_deps <- list(
     # htmlDependency("json2", "2014.02.04", c(href="shared"), script = "json2-min.js"),
-    htmlDependency("json2", "2014.02.04", c(href="https://cdn.staticfile.org/json2/20140204/json2.min.js")),
+    htmlDependency("json2", "2014.02.04", c(href="https://cdn.staticfile.org/json2/20140204"), script = "json2.min.js"),
     jquery(),
+    shinyjs(),
     # htmlDependency("shiny", utils::packageVersion("shiny"), c(href="shared"),
     #   script = if (getOption("shiny.minified", TRUE)) paste("shiny.min.js?token=", token, sep="") else paste("shiny.js?token=", token, sep=""),
     #   stylesheet = paste("shiny.css?token=", token, sep=""))
-    htmlDependency("shiny", utils::packageVersion("shiny"), src = if (getOption("shiny.minified", TRUE)) c(href="https://cdn.kesci.com/q4yqenudz/shiny.min.js") else c(href="https://cdn.kesci.com/q4yrhdyox/shiny.js")),
     htmlDependency("shiny", utils::packageVersion("shiny"), src = c(href="https://cdn.kesci.com/q4yqf9rd2"), stylesheet = "shiny.css")
   )
 
