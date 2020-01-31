@@ -76,14 +76,16 @@ renderPage <- function(ui, connection, showcase=0, testMode=FALSE) {
     if (getOption("shiny.minified", TRUE)) {
       return(htmlDependency(
         "shiny", utils::packageVersion("shiny"),
-        c(href = "https://cdn.kesci.com/q4yqenudz"),
-        script = "shiny.min.js"
+        c(href = "https://cdn.kesci.com"),
+        script = "q4yqenudz/shiny.min.js",
+        stylesheet = "q4yqf9rd2/shiny.css"
       ))
     } else {
       return(htmlDependency(
         "shiny", utils::packageVersion("shiny"),
-        c(href = "https://cdn.kesci.com/q4yrhdyox"),
-        script = "shiny.js"
+        c(href = "https://cdn.kesci.com"),
+        script = "q4yrhdyox/shiny.js",
+        stylesheet = "q4yqf9rd2/shiny.css"
       ))
     }
   }
@@ -96,7 +98,7 @@ renderPage <- function(ui, connection, showcase=0, testMode=FALSE) {
     # htmlDependency("shiny", utils::packageVersion("shiny"), c(href="shared"),
     #   script = if (getOption("shiny.minified", TRUE)) paste("shiny.min.js?token=", token, sep="") else paste("shiny.js?token=", token, sep=""),
     #   stylesheet = paste("shiny.css?token=", token, sep=""))
-    htmlDependency("shiny", utils::packageVersion("shiny"), src = c(href="https://cdn.kesci.com/q4yqf9rd2"), stylesheet = "shiny.css")
+    # htmlDependency("shiny", utils::packageVersion("shiny"), src = c(href="https://cdn.kesci.com/q4yqf9rd2"), stylesheet = "shiny.css")
   )
 
   if (testMode) {

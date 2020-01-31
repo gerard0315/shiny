@@ -60,19 +60,31 @@ bootstrapPage <- function(..., title = NULL, responsive = NULL, theme = NULL) {
 #' @inheritParams bootstrapPage
 #' @export
 bootstrapLib <- function(theme = NULL) {
-  token <- getOption('shiny.klabToken')
+  # htmlDependency("bootstrap", "3.4.1",
+  #   c(
+  #     href = "shared/bootstrap",
+  #     file = system.file("www/shared/bootstrap", package = "shiny")
+  #   ),
+  #   script = c(
+  #     "js/bootstrap.min.js",
+  #     # These shims are necessary for IE 8 compatibility
+  #     "shim/html5shiv.min.js",
+  #     "shim/respond.min.js"
+  #   ),
+  #   stylesheet = if (is.null(theme)) "css/bootstrap.min.css",
+  #   meta = list(viewport = "width=device-width, initial-scale=1")
+  # )
+
+  # https://cdn.kesci.com/q4z83bt1u/bootstrap.min.js
   htmlDependency("bootstrap", "3.4.1",
-    c(
-      href = "shared/bootstrap",
-      file = system.file("www/shared/bootstrap", package = "shiny")
-    ),
+    c(href = "https://cdn.kesci.com"),
     script = c(
-      "js/bootstrap.min.js",
+      "q4z83bt1u/bootstrap.min.js",
       # These shims are necessary for IE 8 compatibility
-      "shim/html5shiv.min.js",
-      "shim/respond.min.js"
+      "q4z84z5r3/html5shiv.min.js",
+      "q4z85bb85/respond.min.js"
     ),
-    stylesheet = if (is.null(theme)) "css/bootstrap.min.css",
+    stylesheet = if (is.null(theme)) "q4z85uvum/bootstrap.min.css",
     meta = list(viewport = "width=device-width, initial-scale=1")
   )
 }
