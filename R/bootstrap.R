@@ -74,7 +74,7 @@ bootstrapLib <- function(theme = NULL) {
   #   stylesheet = if (is.null(theme)) "css/bootstrap.min.css",
   #   meta = list(viewport = "width=device-width, initial-scale=1")
   # )
-
+  message("\n", "loading bootstrap")
   # https://cdn.kesci.com/q4z83bt1u/bootstrap.min.js
   htmlDependency("bootstrap", "3.4.1",
     c(href = "https://cdn.kesci.com"),
