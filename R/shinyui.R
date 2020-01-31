@@ -55,7 +55,8 @@ renderPage <- function(ui, connection, showcase=0, testMode=FALSE) {
       srcUrl <- "https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"
       return(htmlDependency(
         "jquery", "3.4.1",
-        c(href = srcUrl)
+        c(href = "https://cdn.staticfile.org/jquery/3.4.1"),
+        script = "jquery.min.js"
       ))
     }
     if (version == 1) {
@@ -78,7 +79,7 @@ renderPage <- function(ui, connection, showcase=0, testMode=FALSE) {
     #   script = if (getOption("shiny.minified", TRUE)) paste("shiny.min.js?token=", token, sep="") else paste("shiny.js?token=", token, sep=""),
     #   stylesheet = paste("shiny.css?token=", token, sep=""))
     htmlDependency("shiny", utils::packageVersion("shiny"), src = if (getOption("shiny.minified", TRUE)) c(href="https://cdn.kesci.com/q4yqenudz/shiny.min.js") else c(href="https://cdn.kesci.com/q4yrhdyox/shiny.js")),
-    htmlDependency("shiny", utils::packageVersion("shiny"), c(href="https://cdn.kesci.com/q4yqf9rd2/shiny.css")) 
+    htmlDependency("shiny", utils::packageVersion("shiny"), src = c(href="https://cdn.kesci.com/q4yqf9rd2"), stylesheet = "shiny.css")
   )
 
   if (testMode) {
