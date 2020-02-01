@@ -178,15 +178,20 @@ shinyAppDir_serverR <- function(appDir, options=list()) {
     }
   )
   uiHandler <- function(req) {
+    message("\n req ui handler", req$PATH_INFO)
     uiHandlerSource()(req)
   }
 
   wwwDir <- file.path.ci(appDir, "www")
   if (dirExists(wwwDir)) {
+    message("\n static paths dirExists")
     staticPaths <- list("/" = staticPath(wwwDir, indexhtml = FALSE, fallthrough = TRUE))
   } else {
+    message("\n no static paths dirExists")
     staticPaths <- list()
   }
+
+  message("\n static paths", staticPaths)
 
   fallbackWWWDir <- system.file("www-dir", package = "shiny")
 
