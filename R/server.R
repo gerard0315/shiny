@@ -901,6 +901,8 @@ runApp <- function(appDir=getwd(),
     .globals$IncludeWWW <- FALSE
   }
 
+  message("\n include WWW", .globals$IncludeWWW)
+
   # If display mode is specified as an argument, apply it (overriding the
   # value specified in DESCRIPTION, if any).
   display.mode <- match.arg(display.mode)
@@ -910,6 +912,8 @@ runApp <- function(appDir=getwd(),
   else if (display.mode == "showcase") {
     setShowcaseDefault(1)
   }
+
+  message("\n display.mode", display.mode)
 
   require(shiny)
 
