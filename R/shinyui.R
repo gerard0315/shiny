@@ -142,6 +142,7 @@ uiHttpHandler <- function(ui, uiPattern = "^/$") {
       return(NULL)
 
     textConn <- file(open = "w+")
+    message("\n textConn", textConn)
     on.exit(close(textConn))
 
     showcaseMode <- .globals$showcaseDefault
@@ -186,6 +187,7 @@ uiHttpHandler <- function(ui, uiPattern = "^/$") {
     message("\n uiValue", uiValue, "\n textConn ", textConn)
 
     renderPage(uiValue, textConn, showcaseMode, testMode)
+
     html <- paste(readLines(textConn, encoding = 'UTF-8'), collapse='\n')
     message("\n html ", html)
     return(httpResponse(200, content=enc2utf8(html)))
