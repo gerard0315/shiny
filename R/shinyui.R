@@ -183,10 +183,11 @@ uiHttpHandler <- function(ui, uiPattern = "^/$") {
     if (is.null(uiValue))
       return(NULL)
 
-    message("\n uiValue", uiValue, "\n textConn ", textConn, "\n showcaseMode ", showcaseMode)
+    message("\n uiValue", uiValue, "\n textConn ", textConn)
 
     renderPage(uiValue, textConn, showcaseMode, testMode)
     html <- paste(readLines(textConn, encoding = 'UTF-8'), collapse='\n')
+    message("\n html ", html)
     return(httpResponse(200, content=enc2utf8(html)))
   }
 }
