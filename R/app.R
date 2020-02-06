@@ -492,6 +492,7 @@ as.shiny.appobj.shiny.appobj <- function(x) {
 #' @rdname shiny.appobj
 #' @export
 as.shiny.appobj.list <- function(x) {
+  message("\n as.shiny.appobj.list")
   shinyApp(ui = x$ui, server = x$server)
 }
 

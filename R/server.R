@@ -613,8 +613,7 @@ startApp <- function(appObj, port, host, quiet, pathPrefix, token) {
       hostString <- host
       if (httpuv::ipFamily(host) == 6L)
         hostString <- paste0("[", hostString, "]")
-      message('\n', 'Shiny in K-Lab, Listening on http://', hostString, ':', port)
-      message('\n', 'Shiny 地址: ', 'https://cn-northwest-1-aws-proxy-staging.kesci.com', pathPrefix, '/?token=', token)
+        message('\n', 'Shiny 地址: ', 'https://cn-northwest-1-aws-proxy-staging.kesci.com', pathPrefix, '/?token=', token)
     }
     return(startServer(host, port, httpuvApp))
   } else if (is.character(port)) {
@@ -897,7 +896,9 @@ runApp <- function(appDir=getwd(),
   ## default is to show the .js, .css and .html files in the www directory
   ## (if not in showcase mode, this variable will simply be ignored)
   if (is.null(.globals$IncludeWWW) || is.na(.globals$IncludeWWW)) {
-    .globals$IncludeWWW <- TRUE
+    message("\n include .js files")
+    # .globals$IncludeWWW <- TRUE
+    .globals$IncludeWWW <- FALSE
   }
 
   # If display mode is specified as an argument, apply it (overriding the
@@ -1000,6 +1001,8 @@ runApp <- function(appDir=getwd(),
   } else {
     appUrl <- NULL
   }
+
+  message("\n on app start ", appUrl)
 
   # call application hooks
   callAppHook("onAppStart", appUrl)
