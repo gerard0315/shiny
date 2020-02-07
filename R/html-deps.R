@@ -40,7 +40,7 @@ createWebDependency <- function(dependency, scrubFile = TRUE) {
   if (scrubFile)
     dependency$src$file <- NULL
 
-  message("\n createWebDependency ", dependency, "\n denpendency ", dependency$src$file)
+  message("\n createWebDependency ", dependency, "\n name ", dependency$name, "\n file ", dependency$src$file, "\n href ", dependency$src$href)
   return(dependency)
 }
 
@@ -55,6 +55,8 @@ processDeps <- function(tags, session) {
     createWebDependency
   )
   names(dependencies) <- NULL
+
+  message("\n processDeps ", dependencies)
 
   list(
     html = doRenderTags(ui),
