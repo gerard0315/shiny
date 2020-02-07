@@ -39,7 +39,7 @@ createWebDependency <- function(dependency, scrubFile = TRUE) {
   # Don't leak local file path to client
   if (scrubFile)
     dependency$src$file <- NULL
-
+  message("\n scrubFile ", scrubFile)
   message("\n createWebDependency ", dependency, "\n name ", dependency$name, "\n file ", dependency$src$file, "\n href ", dependency$src$href)
   return(dependency)
 }

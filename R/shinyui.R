@@ -108,7 +108,6 @@ renderPage <- function(ui, connection, showcase=0, testMode=FALSE) {
         c(href="shared"), script = "shiny-testmode.js")
   }
   message("\ end?")
-  message("\n renderDocument ", createWebDependency)
   html <- renderDocument(ui, shiny_deps, processDep = createWebDependency)
   writeUTF8(html, con = connection)
 }
