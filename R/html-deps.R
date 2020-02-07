@@ -40,7 +40,7 @@ createWebDependency <- function(dependency, scrubFile = TRUE) {
   if (scrubFile)
     dependency$src$file <- NULL
 
-  message("\n createWebDependency ", dependency)
+  message("\n createWebDependency ", dependency, "\n denpendency ", dependency$src$file)
   return(dependency)
 }
 
