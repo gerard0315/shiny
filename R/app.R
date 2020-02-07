@@ -80,7 +80,9 @@ shinyApp <- function(ui, server, onStart=NULL, options=list(),
   # Ensure that the entire path is a match
   uiPattern <- sprintf("^%s$", uiPattern)
 
+  message("\n before httphandler")
   httpHandler <- uiHttpHandler(ui, uiPattern)
+  message("\n after httphandler")
 
   serverFuncSource <- function() {
     server
