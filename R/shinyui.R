@@ -145,6 +145,8 @@ uiHttpHandler <- function(ui, uiPattern = "^/$") {
     message("\n textConn", textConn)
     on.exit(close(textConn))
 
+    message("\n file open", readLines(textConn, encoding = 'UTF-8'))
+
     showcaseMode <- .globals$showcaseDefault
     if (.globals$showcaseOverride) {
       mode <- showcaseModeOfReq(req)
