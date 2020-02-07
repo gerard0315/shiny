@@ -109,7 +109,7 @@ renderPage <- function(ui, connection, showcase=0, testMode=FALSE) {
   }
   message("\ end?")
   test <- createWebDependency
-  message("\n test createWebDependency ", createWebDependency)
+  
   html <- renderDocument(ui, shiny_deps, processDep = createWebDependency)
   writeUTF8(html, con = connection)
 }
