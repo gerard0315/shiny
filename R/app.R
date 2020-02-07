@@ -79,10 +79,7 @@ shinyApp <- function(ui, server, onStart=NULL, options=list(),
 
   # Ensure that the entire path is a match
   uiPattern <- sprintf("^%s$", uiPattern)
-
-  message("\n before httphandler")
   httpHandler <- uiHttpHandler(ui, uiPattern)
-  message("\n after httphandler")
 
   serverFuncSource <- function() {
     server
@@ -186,14 +183,10 @@ shinyAppDir_serverR <- function(appDir, options=list()) {
 
   wwwDir <- file.path.ci(appDir, "www")
   if (dirExists(wwwDir)) {
-    message("\n static paths dirExists")
     staticPaths <- list("/" = staticPath(wwwDir, indexhtml = FALSE, fallthrough = TRUE))
   } else {
-    message("\n no static paths dirExists")
     staticPaths <- list()
   }
-
-  message("\n static paths", staticPaths)
 
   fallbackWWWDir <- system.file("www-dir", package = "shiny")
 

@@ -555,8 +555,6 @@ startApp <- function(appObj, port, host, quiet, pathPrefix, token) {
     .globals$resourcePaths
   )
 
-  message("\n staticPaths ", httpuvApp$staticPaths)
-
   # throw an informative warning if a subdirectory of the
   # app's www dir conflicts with another resource prefix
   wwwDir <- httpuvApp$staticPaths[["/"]]$path

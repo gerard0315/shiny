@@ -109,8 +109,11 @@ renderPage <- function(ui, connection, showcase=0, testMode=FALSE) {
   }
 
   message("\n createWebDependency ", createWebDependency)
+
   html <- renderDocument(ui, shiny_deps, processDep = createWebDependency)
+
   message("\n html ", html)
+
   writeUTF8(html, con = connection)
 }
 
@@ -144,7 +147,6 @@ uiHttpHandler <- function(ui, uiPattern = "^/$") {
       return(NULL)
 
     textConn <- file(open = "w+")
-    message("\n textConn", textConn)
     on.exit(close(textConn))
 
     showcaseMode <- .globals$showcaseDefault

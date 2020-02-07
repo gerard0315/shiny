@@ -27,7 +27,7 @@ createWebDependency <- function(dependency, scrubFile = TRUE) {
     stop("Unexpected non-html_dependency type")
 
   if (is.null(dependency$src$href)) {
-    message("\n createWebDependency dependency$src$href ", dependency$src$href)
+    message("\n createWebDependency dependency$src$href ", dependency)
     prefix <- paste(dependency$name, "-", dependency$version, sep = "")
     addResourcePath(prefix, dependency$src$file)
     dependency$src$href <- prefix
@@ -36,6 +36,7 @@ createWebDependency <- function(dependency, scrubFile = TRUE) {
   # Don't leak local file path to client
   if (scrubFile)
     dependency$src$file <- NULL
+
   message("\n final return ", dependency)
   return(dependency)
 }
