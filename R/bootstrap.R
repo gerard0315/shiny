@@ -27,7 +27,7 @@ NULL
 #' @seealso [fluidPage()], [fixedPage()]
 #' @export
 bootstrapPage <- function(..., title = NULL, responsive = NULL, theme = NULL) {
-  message("\n", "bootstrapPage", title, responsive, theme)
+
   if (!is.null(responsive)) {
     shinyDeprecated("The 'responsive' argument is no longer used with Bootstrap 3.")
   }
@@ -44,7 +44,6 @@ bootstrapPage <- function(..., title = NULL, responsive = NULL, theme = NULL) {
     ),
     bootstrapLib()
   )
-  message("\n", "attachDependencies")
 }
 
 #' Bootstrap libraries
@@ -61,33 +60,33 @@ bootstrapPage <- function(..., title = NULL, responsive = NULL, theme = NULL) {
 #' @inheritParams bootstrapPage
 #' @export
 bootstrapLib <- function(theme = NULL) {
-  # htmlDependency("bootstrap", "3.4.1",
-  #   c(
-  #     href = "shared/bootstrap",
-  #     file = system.file("www/shared/bootstrap", package = "shiny")
-  #   ),
-  #   script = c(
-  #     "js/bootstrap.min.js",
-  #     # These shims are necessary for IE 8 compatibility
-  #     "shim/html5shiv.min.js",
-  #     "shim/respond.min.js"
-  #   ),
-  #   stylesheet = if (is.null(theme)) "css/bootstrap.min.css",
-  #   meta = list(viewport = "width=device-width, initial-scale=1")
-  # )
-  message("\n", "loading bootstrap")
-  # https://cdn.kesci.com/q4z83bt1u/bootstrap.min.js
   htmlDependency("bootstrap", "3.4.1",
-    c(href = "https://cdn.kesci.com"),
-    script = c(
-      "q4z83bt1u/bootstrap.min.js",
-      # These shims are necessary for IE 8 compatibility
-      "q4z84z5r3/html5shiv.min.js",
-      "q4z85bb85/respond.min.js"
+    c(
+      href = "shared/bootstrap",
+      file = system.file("www/shared/bootstrap", package = "shiny")
     ),
-    stylesheet = if (is.null(theme)) "q4z85uvum/bootstrap.min.css",
+    script = c(
+      "js/bootstrap.min.js",
+      # These shims are necessary for IE 8 compatibility
+      "shim/html5shiv.min.js",
+      "shim/respond.min.js"
+    ),
+    stylesheet = if (is.null(theme)) "css/bootstrap.min.css",
     meta = list(viewport = "width=device-width, initial-scale=1")
   )
+
+  # https://cdn.kesci.com/q4z83bt1u/bootstrap.min.js
+  # htmlDependency("bootstrap", "3.4.1",
+  #   c(href = "https://cdn.kesci.com"),
+  #   script = c(
+  #     "q4z83bt1u/bootstrap.min.js",
+  #     # These shims are necessary for IE 8 compatibility
+  #     "q4z84z5r3/html5shiv.min.js",
+  #     "q4z85bb85/respond.min.js"
+  #   ),
+  #   stylesheet = if (is.null(theme)) "q4z85uvum/bootstrap.min.css",
+  #   meta = list(viewport = "width=device-width, initial-scale=1")
+  # )
 }
 
 #' @rdname bootstrapPage
