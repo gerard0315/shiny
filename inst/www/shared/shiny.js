@@ -553,6 +553,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return throttled;
   }
 
+  function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
+  }
+
   // Schedules data to be sent to shinyapp at the next setTimeout(0).
   // Batches multiple input calls into one websocket message.
   var InputBatchSender = function InputBatchSender(shinyapp) {
@@ -849,8 +855,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
         if (!/\/$/.test(defaultPath)) defaultPath += '/';
         defaultPath += 'websocket/';
+        
+        var klabToken = getQueryString("token")
 
-        var ws = new WebSocket(protocol + '//' + window.location.host + defaultPath);
+        var ws = new WebSocket(protocol + '//' + window.location.host + defaultPath + '?token=' + klabToken);
         ws.binaryType = 'arraybuffer';
 
         return ws;
