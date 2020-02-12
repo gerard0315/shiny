@@ -91,19 +91,6 @@ bootstrapLib <- function(theme = NULL) {
     stylesheet = if (is.null(theme)) "css/bootstrap.min.css",
     meta = list(viewport = "width=device-width, initial-scale=1")
   )
-
-  # https://cdn.kesci.com/q4z83bt1u/bootstrap.min.js
-  # htmlDependency("bootstrap", "3.4.1",
-  #   c(href = "https://cdn.kesci.com"),
-  #   script = c(
-  #     "q4z83bt1u/bootstrap.min.js",
-  #     # These shims are necessary for IE 8 compatibility
-  #     "q4z84z5r3/html5shiv.min.js",
-  #     "q4z85bb85/respond.min.js"
-  #   ),
-  #   stylesheet = if (is.null(theme)) "q4z85uvum/bootstrap.min.css",
-  #   meta = list(viewport = "width=device-width, initial-scale=1")
-  # )
 }
 
 #' @rdname bootstrapPage
