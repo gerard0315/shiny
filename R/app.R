@@ -177,7 +177,6 @@ shinyAppDir_serverR <- function(appDir, options=list()) {
     }
   )
   uiHandler <- function(req) {
-    message("\n req ui handler", req$PATH_INFO)
     uiHandlerSource()(req)
   }
 
@@ -487,7 +486,6 @@ as.shiny.appobj.shiny.appobj <- function(x) {
 #' @rdname shiny.appobj
 #' @export
 as.shiny.appobj.list <- function(x) {
-  message("\n as.shiny.appobj.list")
   shinyApp(ui = x$ui, server = x$server)
 }
 

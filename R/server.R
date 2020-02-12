@@ -818,7 +818,6 @@ runApp <- function(appDir=getwd(),
   # I tried to make this as compact and intuitive as possible,
   # given that there are four distinct possibilities to check
   appOps <- appParts$options
-  message("\n options ", appOps)
 
   findVal <- function(arg, default) {
     if (arg %in% names(appOps)) appOps[[arg]] else default
@@ -842,7 +841,6 @@ runApp <- function(appDir=getwd(),
   workerId(workerId)
 
   if (inShinyServer()) {
-    message("\n Shiny Server ", inShinyServer())
     # If SHINY_PORT is set, we're running under Shiny Server. Check the version
     # to make sure it is compatible. Older versions of Shiny Server don't set
     # SHINY_SERVER_VERSION, those will return "" which is considered less than
@@ -899,12 +897,9 @@ runApp <- function(appDir=getwd(),
   ## default is to show the .js, .css and .html files in the www directory
   ## (if not in showcase mode, this variable will simply be ignored)
   if (is.null(.globals$IncludeWWW) || is.na(.globals$IncludeWWW)) {
-    message("\n include .js files")
     # .globals$IncludeWWW <- TRUE
     .globals$IncludeWWW <- FALSE
   }
-
-  message("\n include WWW", .globals$IncludeWWW)
 
   # If display mode is specified as an argument, apply it (overriding the
   # value specified in DESCRIPTION, if any).
@@ -915,8 +910,6 @@ runApp <- function(appDir=getwd(),
   else if (display.mode == "showcase") {
     setShowcaseDefault(1)
   }
-
-  message("\n display.mode", display.mode)
 
   require(shiny)
 
@@ -1008,8 +1001,6 @@ runApp <- function(appDir=getwd(),
   } else {
     appUrl <- NULL
   }
-
-  message("\n on app start ", appUrl)
 
   # call application hooks
   callAppHook("onAppStart", appUrl)

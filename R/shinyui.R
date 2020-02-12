@@ -136,7 +136,6 @@ uiHttpHandler <- function(ui, uiPattern = "^/$") {
   force(ui)
 
   function(req) {
-    message("\n req$PATH_INFO ", req$PATH_INFO)
     if (!identical(req$REQUEST_METHOD, 'GET'))
       return(NULL)
 
