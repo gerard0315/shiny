@@ -6,19 +6,16 @@
 {{ body }}
 </html>
 <script>
-  console.log('loadded html default')
   function getQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(r[2]); return null;
   }
   var token = getQueryString("token")
-  console.log('token fetched', token);
   $.ajaxSetup({
         beforeSend: function(jqXHR, settings) {
             settings.url += settings.url.match(/\?/) ? "&" : "?";
             settings.url += "token=" + token;
-            console.log('url set', settings.url);
         },
       });
 </script>
