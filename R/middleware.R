@@ -89,8 +89,6 @@ joinHandlers <- function(handlers) {
 requestInspectHandler <- function(handler) {
   force(handler)
 
-  message('\n', 'inspector attached in func')
-
   function(req) {
     message("RECV ", req$PATH_INFO)
     return(handler(req))
@@ -232,8 +230,6 @@ routeHandler <- function(prefix, token, handler) {
   force(prefix)
   force(token)
   force(handler)
-
-  message('\n', 'token get', token)
 
   if (identical("", prefix))
     return(handler)
