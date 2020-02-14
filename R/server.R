@@ -359,7 +359,7 @@ createAppHandlers <- function(httpHandlers, serverFuncSource) {
           switch(
             msg$method,
             websocket_ping = {
-              private$websocket$send("pong")
+              shinysession$wsPong()
             },
             init = {
 
