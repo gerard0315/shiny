@@ -432,12 +432,18 @@ createAppHandlers <- function(httpHandlers, serverFuncSource) {
           httpuv::interrupt()
         })
       }
+      was$onOpen(function() {
+        message("\n ws opened");
+        ws$send("open")
+      })
+
       ws$onMessage(function(binary, msg) {
         # If unhandled errors occur, make sure they get properly logged
         withLogErrors(messageHandler(binary, msg))
       })
 
       ws$onClose(function() {
+        message("\n ws closed");
         shinysession$wsClosed()
         appsByToken$remove(shinysession$token)
         appsNeedingFlush$remove(shinysession$token)

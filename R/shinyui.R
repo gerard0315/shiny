@@ -47,17 +47,17 @@ renderPage <- function(ui, connection, showcase=0, testMode=FALSE) {
     version <- getOption("shiny.jquery.version", 3)
     if (version == 3) {
       # https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js
-      return(htmlDependency(
-        "jquery", "3.4.1",
-        c(href = "shared"),
-        script = "jquery.min.js"
-      ))
-      # srcUrl <- "https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"
       # return(htmlDependency(
       #   "jquery", "3.4.1",
-      #   c(href = "https://cdn.staticfile.org/jquery/3.4.1"),
+      #   c(href = "shared"),
       #   script = "jquery.min.js"
       # ))
+      srcUrl <- "https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"
+      return(htmlDependency(
+        "jquery", "3.4.1",
+        c(href = "https://cdn.staticfile.org/jquery/3.4.1"),
+        script = "jquery.min.js"
+      ))
     }
     if (version == 1) {
       # https://cdn.staticfile.org/jquery/1.12.4/jquery.min.js

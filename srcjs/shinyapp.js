@@ -100,6 +100,12 @@ var ShinyApp = function() {
         data: self.$initialInput
       }));
 
+      setInterval(() => {
+        socket.send(JSON.stringify({
+          method: 'websocket_ping'
+        }));
+      }, 3000);
+
       while (self.$pendingMessages.length) {
         var msg = self.$pendingMessages.shift();
         socket.send(msg);

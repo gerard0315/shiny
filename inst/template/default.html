@@ -17,12 +17,16 @@
   var token = getQueryString("token")
   Object.keys(scripts).forEach(element => {
     if (scripts[element].src) {
-      var scriptElm = document.createElement("script");
-      scriptElm.src = scripts[element].src + "?token=" + token;
-      scriptElm.onload = function() {
-        console.log("script loaded ", scriptElm.src);
+      var nameArr = scripts[element].src.split("/");
+      var name = nameArr[nameArr.length - 1];
+      if (name !== "jquery.min.js") {
+        var scriptElm = document.createElement("script");
+        scriptElm.src = scripts[element].src + "?token=" + token;
+        scriptElm.onload = function() {
+          console.log("script loaded ", scriptElm.src);
+        }
+        head.appendChild(scriptElm);
       }
-      head.appendChild(scriptElm);
     }
   });
   Object.keys(links).forEach(element => {
