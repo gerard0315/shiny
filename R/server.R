@@ -432,7 +432,8 @@ createAppHandlers <- function(httpHandlers, serverFuncSource) {
           httpuv::interrupt()
         })
       }
-      was$onOpen(function() {
+      
+      ws$onOpen(function() {
         message("\n ws opened");
         ws$send("open")
       })
