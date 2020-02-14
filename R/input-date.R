@@ -130,22 +130,8 @@ dateInput <- function(inputId, label, value = NULL, min = NULL, max = NULL,
 
 token <- getOption('shiny.klabToken')
 
-datePickerDependency <- htmlDependency(
-  "bootstrap-datepicker", "1.6.4", c(href = "shared/datepicker"),
-  script = "js/bootstrap-datepicker.min.js",
-  stylesheet = "css/bootstrap-datepicker3.min.css",
-  # Need to enable noConflict mode. See #1346.
-  head = "<script>
-(function() {
-  var datepicker = $.fn.datepicker.noConflict();
-  $.fn.bsDatepicker = datepicker;
-})();
-</script>"
-)
-
-# https://cdn.staticfile.org/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js
 # datePickerDependency <- htmlDependency(
-#   "bootstrap-datepicker", "1.6.4", c(href = "https://cdn.staticfile.org/bootstrap-datepicker/1.6.4"),
+#   "bootstrap-datepicker", "1.6.4", c(href = "shared/datepicker"),
 #   script = "js/bootstrap-datepicker.min.js",
 #   stylesheet = "css/bootstrap-datepicker3.min.css",
 #   # Need to enable noConflict mode. See #1346.
@@ -156,3 +142,17 @@ datePickerDependency <- htmlDependency(
 # })();
 # </script>"
 # )
+
+# https://cdn.staticfile.org/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js
+datePickerDependency <- htmlDependency(
+  "bootstrap-datepicker", "1.6.4", c(href = "https://cdn.staticfile.org/bootstrap-datepicker/1.6.4"),
+  script = "js/bootstrap-datepicker.min.js",
+  stylesheet = "css/bootstrap-datepicker3.min.css",
+  # Need to enable noConflict mode. See #1346.
+  head = "<script>
+(function() {
+  var datepicker = $.fn.datepicker.noConflict();
+  $.fn.bsDatepicker = datepicker;
+})();
+</script>"
+)

@@ -6,40 +6,40 @@
 {{ body }}
 </html>
 <script>
-  var head = document.getElementsByTagName('head')[0];
-  var scripts = document.getElementsByTagName("script");
-  var links = document.getElementsByTagName("link");
   function getQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(r[2]); return null;
   }
   var token = getQueryString("token")
-  Object.keys(scripts).forEach(element => {
-    if (scripts[element].src) {
-      var nameArr = scripts[element].src.split("/");
-      var name = nameArr[nameArr.length - 1];
-      if (name !== "jquery.min.js") {
-        var scriptElm = document.createElement("script");
-        scriptElm.src = scripts[element].src + "?token=" + token;
-        scriptElm.onload = function() {
-          console.log("script loaded ", scriptElm.src);
-        }
-        head.appendChild(scriptElm);
-      }
-    }
-  });
-  Object.keys(links).forEach(element => {
-    if (links[element].href) {
-      var linkElm = document.createElement("link");
-      linkElm.href = links[element].href + "?token=" + token;
-      linkElm.rel = "stylesheet";
-      linkElm.onload = function() {
-        console.log("link loaded ", linkElm.href);
-      }
-      head.appendChild(linkElm);
-    }
-  });
+  // var head = document.getElementsByTagName('head')[0];
+  // var scripts = document.getElementsByTagName("script");
+  // var links = document.getElementsByTagName("link");
+  // Object.keys(scripts).forEach(element => {
+  //   if (scripts[element].src) {
+  //     var nameArr = scripts[element].src.split("/");
+  //     var name = nameArr[nameArr.length - 1];
+  //     if (name !== "jquery.min.js") {
+  //       var scriptElm = document.createElement("script");
+  //       scriptElm.src = scripts[element].src + "?token=" + token;
+  //       scriptElm.onload = function() {
+  //         console.log("script loaded ", scriptElm.src);
+  //       }
+  //       head.appendChild(scriptElm);
+  //     }
+  //   }
+  // });
+  // Object.keys(links).forEach(element => {
+  //   if (links[element].href) {
+  //     var linkElm = document.createElement("link");
+  //     linkElm.href = links[element].href + "?token=" + token;
+  //     linkElm.rel = "stylesheet";
+  //     linkElm.onload = function() {
+  //       console.log("link loaded ", linkElm.href);
+  //     }
+  //     head.appendChild(linkElm);
+  //   }
+  // });
   $.ajaxSetup({
         beforeSend: function(jqXHR, settings) {
             settings.url += settings.url.match(/\?/) ? "&" : "?";

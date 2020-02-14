@@ -184,42 +184,42 @@ selectizeInput <- function(inputId, ..., options = NULL, width = NULL) {
 # given a select input and its id, selectize it
 selectizeIt <- function(inputId, select, options, nonempty = FALSE) {
   res <- checkAsIs(options)
-  selectizeDep <- htmlDependency(
-    "selectize", "0.11.2", c(href = "shared/selectize"),
-    stylesheet = "css/selectize.bootstrap3.css",
-    head = format(tagList(
-      HTML('<!--[if lt IE 9]>'),
-      tags$script(src = 'shared/selectize/js/es5-shim.min.js'),
-      HTML('<![endif]-->'),
-      tags$script(src = 'shared/selectize/js/selectize.min.js')
-    ))
-  )
+  # selectizeDep <- htmlDependency(
+  #   "selectize", "0.11.2", c(href = "shared/selectize"),
+  #   stylesheet = "css/selectize.bootstrap3.css",
+  #   head = format(tagList(
+  #     HTML('<!--[if lt IE 9]>'),
+  #     tags$script(src = 'shared/selectize/js/es5-shim.min.js'),
+  #     HTML('<![endif]-->'),
+  #     tags$script(src = 'shared/selectize/js/selectize.min.js')
+  #   ))
+  # )
 
   # https://cdn.staticfile.org/selectize.js/0.11.2/css/selectize.bootstrap3.css
   # https://cdn.staticfile.org/selectize.js/0.11.2/js/selectize.min.js
   # https://cdn.staticfile.org/es5-shim/4.5.13/es5-sham.min.js
-  # selectizeDep <- htmlDependency(
-  #   "selectize", "0.11.2", c(href = "https://cdn.staticfile.org"),
-  #   stylesheet = "selectize.js/0.11.2/css/selectize.bootstrap3.css",
-  #   head = format(tagList(
-  #     HTML('<!--[if lt IE 9]>'),
-  #     tags$script(src = 'es5-shim/4.5.13/es5-shim.min.js'),
-  #     HTML('<![endif]-->'),
-  #     tags$script(src = 'selectize.js/0.11.2/js/selectize.min.js')
-  #   ))
-  # )
+  selectizeDep <- htmlDependency(
+    "selectize", "0.11.2", c(href = "https://cdn.staticfile.org"),
+    stylesheet = "selectize.js/0.11.2/css/selectize.bootstrap3.css",
+    head = format(tagList(
+      HTML('<!--[if lt IE 9]>'),
+      tags$script(src = 'es5-shim/4.5.13/es5-shim.min.js'),
+      HTML('<![endif]-->'),
+      tags$script(src = 'selectize.js/0.11.2/js/selectize.min.js')
+    ))
+  )
 
   if ('drag_drop' %in% options$plugins) {
-    selectizeDep <- list(selectizeDep, htmlDependency(
-      'jqueryui', '1.12.1', c(href = 'shared/jqueryui'),
-      script = 'jquery-ui.min.js'
-    ))
-
-    # https://cdn.staticfile.org/jqueryui/1.12.1/jquery-ui.min.js
     # selectizeDep <- list(selectizeDep, htmlDependency(
-    #   'jqueryui', '1.12.1', c(href = 'https://cdn.staticfile.org/jqueryui/1.12.1'),
+    #   'jqueryui', '1.12.1', c(href = 'shared/jqueryui'),
     #   script = 'jquery-ui.min.js'
     # ))
+
+    # https://cdn.staticfile.org/jqueryui/1.12.1/jquery-ui.min.js
+    selectizeDep <- list(selectizeDep, htmlDependency(
+      'jqueryui', '1.12.1', c(href = 'https://cdn.staticfile.org/jqueryui/1.12.1'),
+      script = 'jquery-ui.min.js'
+    ))
   }
 
   # Insert script on same level as <select> tag
