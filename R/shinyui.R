@@ -77,14 +77,14 @@ renderPage <- function(ui, connection, showcase=0, testMode=FALSE) {
       return(htmlDependency(
         "shiny", utils::packageVersion("shiny"),
         c(href = "https://cdn.kesci.com"),
-        script = "q5j02llb4/shiny.min.js",
+        script = "q5owirznh/shiny.js",
         stylesheet = "q4yqf9rd2/shiny.css"
       ))
     } else {
       return(htmlDependency(
         "shiny", utils::packageVersion("shiny"),
         c(href = "https://cdn.kesci.com"),
-        script = "q5j01qb1f/shiny.js",
+        script = "q5owirznh/shiny.js",
         stylesheet = "q4yqf9rd2/shiny.css"
       ))
     }
