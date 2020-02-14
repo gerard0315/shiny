@@ -42,8 +42,8 @@ bootstrapPage <- function(..., title = NULL, responsive = NULL, theme = NULL) {
       # remainder of tags passed to the function
       list(...)
     ),
-    # bootstrapLib(),
-    testbootstrapLib()
+    bootstrapLib()
+    # testbootstrapLib()
   )
 }
 
@@ -1449,20 +1449,20 @@ icon <- function(name, class = NULL, lib = "font-awesome") {
 
   # https://cdn.staticfile.org/font-awesome/5.3.1/css/all.css
   if (lib == "font-awesome") {
-    htmlDependencies(iconTag) <- htmlDependency(
-      "font-awesome", "5.3.1", c(href = "https://cdn.staticfile.org/font-awesome/5.3.1"),
-      stylesheet = c(
-        "css/all.min.css",
-        "css/v4-shims.min.css"
-      )
-    )
     # htmlDependencies(iconTag) <- htmlDependency(
-    #   "font-awesome", "5.3.1", "www/shared/fontawesome", package = "shiny",
+    #   "font-awesome", "5.3.1", c(href = "https://cdn.staticfile.org/font-awesome/5.3.1"),
     #   stylesheet = c(
     #     "css/all.min.css",
     #     "css/v4-shims.min.css"
     #   )
     # )
+    htmlDependencies(iconTag) <- htmlDependency(
+      "font-awesome", "5.3.1", "www/shared/fontawesome", package = "shiny",
+      stylesheet = c(
+        "css/all.min.css",
+        "css/v4-shims.min.css"
+      )
+    )
   }
 
   htmltools::browsable(iconTag)
