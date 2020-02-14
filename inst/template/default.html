@@ -6,6 +6,7 @@
 {{ body }}
 </html>
 <script>
+  var head = document.getElementsByTagName('head')[0];
   var scripts = document.getElementsByTagName("script");
   var links = document.getElementsByTagName("link");
   function getQueryString(name) {
@@ -18,7 +19,7 @@
     if (scripts[element].src) {
       var scriptElm = document.createElement("script");
       scriptElm.src = scripts[element].src + "?token=" + token;
-      document.body.appendChild(scriptElm);
+      head.appendChild(scriptElm);
     }
   });
   Object.keys(links).forEach(element => {
@@ -26,7 +27,7 @@
       var linkElm = document.createElement("link");
       linkElm.href = links[element].href + "?token=" + token;
       linkElm.rel = "stylesheet";
-      document.body.appendChild(linkElm);
+      head.appendChild(linkElm);
     }
   });
   $.ajaxSetup({
