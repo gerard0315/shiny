@@ -96,7 +96,7 @@ renderPage <- function(ui, connection, showcase=0, testMode=FALSE) {
     jquery(),
     # shinyjs()
     htmlDependency("shiny", utils::packageVersion("shiny"), c(href="shared"),
-      script = if (getOption("shiny.minified", TRUE)) "shiny.min.js" else "shiny.js",
+      script = if (getOption("shiny.minified", TRUE)) "shiny.js" else "shiny.js",
       stylesheet = "shiny.css")
     # htmlDependency("shiny", utils::packageVersion("shiny"), src = c(href="https://cdn.kesci.com/q4yqf9rd2"), stylesheet = "shiny.css")
   )
