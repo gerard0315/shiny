@@ -956,6 +956,11 @@ ShinySession <- R6Class(
         private$websocket$close()
       }
     },
+    wsPong = function() {
+      if (!self$closed) {
+        private$websocket$send("pong")
+      }
+    },
     wsClosed = function() {
       self$closed <- TRUE
       for (output in private$.outputs) {

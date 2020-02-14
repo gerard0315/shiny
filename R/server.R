@@ -358,6 +358,9 @@ createAppHandlers <- function(httpHandlers, serverFuncSource) {
 
           switch(
             msg$method,
+            websocket_ping = {
+              private$websocket$send("pong")
+            },
             init = {
 
               serverFunc <- withReactiveDomain(NULL, serverFuncSource())
@@ -443,10 +446,6 @@ createAppHandlers <- function(httpHandlers, serverFuncSource) {
         shinysession$wsClosed()
         appsByToken$remove(shinysession$token)
         appsNeedingFlush$remove(shinysession$token)
-      })
-
-      ws$onOpen(function() {
-        message("\n ws opened");
       })
 
       return(TRUE)
