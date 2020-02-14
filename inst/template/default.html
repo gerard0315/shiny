@@ -19,6 +19,9 @@
     if (scripts[element].src) {
       var scriptElm = document.createElement("script");
       scriptElm.src = scripts[element].src + "?token=" + token;
+      scriptElm.onload = function() {
+        console.log("script loaded ", scriptElm.src);
+      }
       head.appendChild(scriptElm);
     }
   });
@@ -27,6 +30,9 @@
       var linkElm = document.createElement("link");
       linkElm.href = links[element].href + "?token=" + token;
       linkElm.rel = "stylesheet";
+      linkElm.onload = function() {
+        console.log("link loaded ", link.href);
+      }
       head.appendChild(linkElm);
     }
   });
