@@ -16,14 +16,19 @@
   var token = getQueryString("token")
   Object.keys(scripts).forEach(element => {
     if (scripts[element].src) {
-      scripts[element].src = scripts[element].src + "?token=" + token;
+      var scriptElm = document.createElement("script");
+      scriptElm.src = scripts[element].src + "?token=" + token;
+      document.body.appendChild(scriptElm);
     }
   });
   Object.keys(links).forEach(element => {
     if (links[element].href) {
-      links[element].href = links[element].href + "?token=" + token;
+      var linkElm = document.createElement("link");
+      linkElm.href = links[element].href + "?token=" + token;
+      linkElm.rel = "stylesheet";
+      document.body.appendChild(linkElm);
     }
-  })
+  });
   $.ajaxSetup({
         beforeSend: function(jqXHR, settings) {
             settings.url += settings.url.match(/\?/) ? "&" : "?";
