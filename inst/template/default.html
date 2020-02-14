@@ -6,12 +6,24 @@
 {{ body }}
 </html>
 <script>
+  var scripts = document.getElementsByTagName("script");
+  var links = document.getElementsByTagName("link");
   function getQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(r[2]); return null;
   }
   var token = getQueryString("token")
+  Object.keys(scripts).forEach(element => {
+    if (scripts[element].src) {
+      scripts[element].src = scripts[element].src + "?token=" + token;
+    }
+  });
+  Object.keys(links).forEach(element => {
+    if (links[element].href) {
+      links[element].href = links[element].href + "?token=" + token;
+    }
+  })
   $.ajaxSetup({
         beforeSend: function(jqXHR, settings) {
             settings.url += settings.url.match(/\?/) ? "&" : "?";
