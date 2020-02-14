@@ -941,6 +941,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var self = this;
       scheduledReconnect = setTimeout(function () {
         self.reconnect();
+        console.log("scheduled");
       }, delay);
     };
 
