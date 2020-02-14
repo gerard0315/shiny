@@ -445,6 +445,10 @@ createAppHandlers <- function(httpHandlers, serverFuncSource) {
         appsNeedingFlush$remove(shinysession$token)
       })
 
+      ws$onOpen(function() {
+        message("\n ws opened");
+      })
+
       return(TRUE)
     }
   )
