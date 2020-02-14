@@ -885,7 +885,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           socket.send(JSON.stringify({
             method: 'websocket_ping'
           }));
-        }, 30000);
+        }, 10000);
 
         while (self.$pendingMessages.length) {
           var msg = self.$pendingMessages.shift();
