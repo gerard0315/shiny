@@ -203,9 +203,9 @@ selectizeIt <- function(inputId, select, options, nonempty = FALSE) {
     stylesheet = "selectize.js/0.11.2/css/selectize.bootstrap3.css",
     head = format(tagList(
       HTML('<!--[if lt IE 9]>'),
-      tags$script(src = 'es5-shim/4.5.13/es5-shim.min.js'),
+      tags$script(src = 'https://cdn.staticfile.org/es5-shim/4.5.13/es5-shim.min.js'),
       HTML('<![endif]-->'),
-      tags$script(src = 'selectize.js/0.11.2/js/selectize.min.js')
+      tags$script(src = 'https://cdn.staticfile.org/selectize.js/0.11.2/js/selectize.min.js')
     ))
   )
 
