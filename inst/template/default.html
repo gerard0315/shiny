@@ -31,7 +31,7 @@
       linkElm.href = links[element].href + "?token=" + token;
       linkElm.rel = "stylesheet";
       linkElm.onload = function() {
-        console.log("link loaded ", link.href);
+        console.log("link loaded ", linkElm.href);
       }
       head.appendChild(linkElm);
     }
