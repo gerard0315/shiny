@@ -1267,32 +1267,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     exports.addCustomMessageHandler = addCustomMessageHandler;
 
     this.dispatchMessage = function (data) {
-      var msgObj = {};
-      if (typeof data === "string") {
-        msgObj = JSON.parse(data);
-      } else {
-        // data is arraybuffer
-        var len = new DataView(data, 0, 1).getUint8(0);
-        var typedv = new DataView(data, 1, len);
-        var typebuf = [];
-        for (var i = 0; i < len; i++) {
-          typebuf.push(String.fromCharCode(typedv.getUint8(i)));
+      if (data !== 'pong') {
+        var msgObj = {};
+        if (typeof data === "string") {
+          msgObj = JSON.parse(data);
+        } else {
+          // data is arraybuffer
+          var len = new DataView(data, 0, 1).getUint8(0);
+          var typedv = new DataView(data, 1, len);
+          var typebuf = [];
+          for (var i = 0; i < len; i++) {
+            typebuf.push(String.fromCharCode(typedv.getUint8(i)));
+          }
+          var type = typebuf.join("");
+          data = data.slice(len + 1);
+          msgObj.custom = {};
+          msgObj.custom[type] = data;
         }
-        var type = typebuf.join("");
-        data = data.slice(len + 1);
-        msgObj.custom = {};
-        msgObj.custom[type] = data;
+
+        var evt = jQuery.Event('shiny:message');
+        evt.message = msgObj;
+        $(document).trigger(evt);
+        if (evt.isDefaultPrevented()) return;
+
+        // Send msgObj.foo and msgObj.bar to appropriate handlers
+        this._sendMessagesToHandlers(evt.message, messageHandlers, messageHandlerOrder);
+
+        this.$updateConditionals();
       }
-
-      var evt = jQuery.Event('shiny:message');
-      evt.message = msgObj;
-      $(document).trigger(evt);
-      if (evt.isDefaultPrevented()) return;
-
-      // Send msgObj.foo and msgObj.bar to appropriate handlers
-      this._sendMessagesToHandlers(evt.message, messageHandlers, messageHandlerOrder);
-
-      this.$updateConditionals();
     };
 
     // A function for sending messages to the appropriate handlers.
