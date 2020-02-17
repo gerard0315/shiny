@@ -1646,11 +1646,12 @@ ShinySession <- R6Class(
       if (maxSize > 0 && any(sizes > maxSize)) {
         stop("Maximum upload size exceeded")
       }
-
+      
       jobId <- private$fileUploadContext$createUploadOperation(fileInfos)
+      klabToken <- getOption('shiny.klabToken')
       return(list(jobId=jobId,
                   uploadUrl=paste('session', self$token, 'upload',
-                                  paste(jobId, "?w=", workerId(), sep=""),
+                                  paste(jobId, "?w=", workerId(), "&token=", klabToken, sep=""),
                                   sep='/')))
     },
     `@uploadEnd` = function(jobId, inputId) {
@@ -1839,8 +1840,9 @@ ShinySession <- R6Class(
     saveFileUrl = function(name, data, contentType, extra=list()) {
       "Creates an entry in the file map for the data, and returns a URL pointing
       to the file."
+      klabToken <- getOption('shiny.klabToken')
       self$files$set(name, list(data=data, contentType=contentType))
-      return(sprintf('session/%s/file/%s?w=%s&r=%s',
+      return(sprintf(paste('session/%s/file/%s?w=%s&r=%s&token=', klabToken, sep=""),
                      URLencode(self$token, TRUE),
                      URLencode(name, TRUE),
                      workerId(),
@@ -1865,11 +1867,11 @@ ShinySession <- R6Class(
       }
     },
     registerDownload = function(name, filename, contentType, func) {
-
+      klabToken <- getOption('shiny.klabToken')
       self$downloads$set(name, list(filename = filename,
                                contentType = contentType,
                                func = func))
-      return(sprintf('session/%s/download/%s?w=%s',
+      return(sprintf(paste('session/%s/download/%s?w=%s&token=', klabToken, sep=""),
                      URLencode(self$token, TRUE),
                      URLencode(name, TRUE),
                      workerId()))
@@ -1877,8 +1879,9 @@ ShinySession <- R6Class(
     # register a data object on the server side (for datatable or selectize, etc)
     registerDataObj = function(name, data, filterFunc) {
       # abusing downloads at the moment
+      klabToken <- getOption('shiny.klabToken')
       self$downloads$set(name, list(data = data, filter = filterFunc))
-      return(sprintf('session/%s/dataobj/%s?w=%s&nonce=%s',
+      return(sprintf(paste('session/%s/dataobj/%s?w=%s&nonce=%s', klabToken, sep=""),
                      URLencode(self$token, TRUE),
                      URLencode(name, TRUE),
                      workerId(),

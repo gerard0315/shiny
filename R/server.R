@@ -618,7 +618,8 @@ startApp <- function(appObj, port, host, quiet, pathPrefix, token) {
       hostString <- host
       if (httpuv::ipFamily(host) == 6L)
         hostString <- paste0("[", hostString, "]")
-        message('\n', '请复制该 Url，在浏览器中打开: ', 'https://cn-northwest-1-aws-proxy-staging.kesci.com', pathPrefix, '/?token=', token)
+        proxyPrefix <- getOption('shiny.proxyPrefix')
+        message('\n', '请复制该 URL, 并在浏览器中打开: ', proxyPrefix, pathPrefix, '/?token=', token)
     }
     return(startServer(host, port, httpuvApp))
   } else if (is.character(port)) {

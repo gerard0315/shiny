@@ -5722,11 +5722,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       } else {
         this.iframe.onload = iframeDestroy;
       }
-
+      var klabToken = getQueryString("token");
       this.form = document.createElement('form');
       this.form.method = 'POST';
       this.form.setAttribute('enctype', 'multipart/form-data');
-      this.form.action = "session/" + encodeURI(this.shinyapp.config.sessionId) + "/uploadie/" + encodeURI(this.id);
+      this.form.action = "session/" + encodeURI(this.shinyapp.config.sessionId) + "/uploadie/" + encodeURI(this.id) + "?token=" + klabToken;
       this.form.id = 'shinyupload_form_' + this.id;
       this.form.target = iframeId;
       $(this.form).insertAfter(this.fileEl).append(this.fileEl);
@@ -5779,8 +5779,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.onFile = function (file, cont) {
       var self = this;
       this.onProgress(file, 0);
-
-      $.ajax(this.uploadUrl, {
+      var klabToken = getQueryString("token");
+      $.ajax(this.uploadUrl + "?token=" + klabToken, {
         type: 'POST',
         cache: false,
         xhr: function xhr() {
