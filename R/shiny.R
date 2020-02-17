@@ -1651,7 +1651,7 @@ ShinySession <- R6Class(
       klabToken <- getOption('shiny.klabToken')
       return(list(jobId=jobId,
                   uploadUrl=paste('session', self$token, 'upload',
-                                  paste(jobId, "?w=", workerId()),
+                                  paste(jobId, "?w=", workerId(), sep=""),
                                   sep='/')))
     },
     `@uploadEnd` = function(jobId, inputId) {
