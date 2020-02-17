@@ -94,11 +94,11 @@ renderPage <- function(ui, connection, showcase=0, testMode=FALSE) {
     # htmlDependency("json2", "2014.02.04", c(href="shared"), script = "json2-min.js"),
     # htmlDependency("json2", "2014.02.04", c(href="https://cdn.staticfile.org/json2/20140204"), script = "json2.min.js"),
     jquery(),
-    shinyjs(),
-    # htmlDependency("shiny", utils::packageVersion("shiny"), c(href="shared"),
-    #   script = if (getOption("shiny.minified", TRUE)) "shiny.js" else "shiny.js",
-    #   stylesheet = "shiny.css")
-    htmlDependency("shiny", utils::packageVersion("shiny"), src = c(href="https://cdn.kesci.com/q4yqf9rd2"), stylesheet = "shiny.css")
+    # shinyjs(),
+    htmlDependency("shiny", utils::packageVersion("shiny"), c(href="shared"),
+      script = if (getOption("shiny.minified", TRUE)) "shiny.js" else "shiny.js",
+      stylesheet = "shiny.css")
+    # htmlDependency("shiny", utils::packageVersion("shiny"), src = c(href="https://cdn.kesci.com/q4yqf9rd2"), stylesheet = "shiny.css")
   )
 
   if (testMode) {

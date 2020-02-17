@@ -1668,7 +1668,7 @@ ShinySession <- R6Class(
     handleRequest = function(req) {
       # TODO: Turn off caching for the response
       subpath <- req$PATH_INFO
-
+      klabToken <- getOption('shiny.klabToken')
       matches <- regmatches(subpath,
                             regexec("^/([a-z]+)/([^?]*)",
                                     subpath,
@@ -1676,8 +1676,12 @@ ShinySession <- R6Class(
       if (length(matches) == 0)
         return(httpResponse(400, 'text/html', '<h1>Bad Request</h1>'))
 
+      message("\n handle request")
+
       if (matches[2] == 'file') {
-        savedFile <- self$files$get(URLdecode(matches[3]))
+        message("\n matches[2] == 'file' matches[3] ", matches[3])
+        file_url <- paste(URLdecode(matches[3]), "?token=", klabToken, sep="")
+        savedFile <- self$files$get(file_url)
         if (is.null(savedFile))
           return(httpResponse(404, 'text/html', '<h1>Not Found</h1>'))
 
@@ -1685,6 +1689,7 @@ ShinySession <- R6Class(
       }
 
       if (matches[2] == 'upload' && identical(req$REQUEST_METHOD, "POST")) {
+        message("\n matches[2] == 'upload'  matches[3] ", matches[3])
         job <- private$fileUploadContext$getUploadOperation(matches[3])
         if (!is.null(job)) {
           fileName <- req$HTTP_SHINY_FILE_NAME
@@ -1724,7 +1729,10 @@ ShinySession <- R6Class(
       }
 
       if (matches[2] == 'uploadie' && identical(req$REQUEST_METHOD, "POST")) {
-        id <- URLdecode(matches[3])
+        message("\n matches[2] == 'uploadie' matches[3] ", matches[3])
+        klabToken <- getOption('shiny.klabToken')
+        file_url_uploadie <- paste(URLdecode(matches[3]), "?token=", klabToken, sep="")
+        id <- URLdecode(file_url_uploadie)
         res <- maybeMoveIEUpload(mime::parse_multipart(req))
         private$.input$set(id, res[[id]])
         return(httpResponse(200, 'text/plain', 'OK'))
@@ -1753,6 +1761,7 @@ ShinySession <- R6Class(
         dlmatches <- regmatches(matches[3],
                                 regexec("^([^/]+)(/[^/]+)?$",
                                         matches[3]))[[1]]
+        message("\n matches[2] == 'dlname' matches[3] ", dlmatches[2])
         dlname <- URLdecode(dlmatches[2])
         download <- self$downloads$get(dlname)
         if (is.null(download))
@@ -1768,7 +1777,7 @@ ShinySession <- R6Class(
         # contains non-ASCII characters, then do a redirect with the desired
         # name tacked on the end.
         if (dlmatches[3] == '' && grepl('[^ -~]', filename)) {
-
+        message("\n matches[2] == '' matches[3] ", dlname, " ", filename)
           return(httpResponse(302, 'text/html', '<h1>Found</h1>', c(
             'Location' = sprintf('%s/%s',
                                  URLencode(dlname, TRUE),
