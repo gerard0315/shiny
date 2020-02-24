@@ -1121,8 +1121,11 @@ runExample <- function(example=NA,
            '"')
   }
   else {
-    runApp(dir, port = port, host = host, launch.browser = launch.browser,
-           display.mode = display.mode)
+    examplePort <- getOption('shiny.port'),
+    klabToken <- getOption('shiny.klabToken'),
+    pathPrefix <- getOption('shiny.pathPrefix'),
+    exampleHost <- getOption('shiny.host', '0.0.0.0'),
+    runApp(dir, port = examplePort, exampleHost = host, pathPrefix = pathPrefix, token = klabToken, launch.browser = launch.browser, display.mode = display.mode)
   }
 }
 
