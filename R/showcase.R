@@ -31,22 +31,48 @@ licenseLink <- function(licenseName) {
 # document.
 showcaseHead <- function() {
 
+  # deps  <- list(
+  #   htmlDependency("jqueryui", "1.12.1", c(href="shared/jqueryui"),
+  #     script = "jquery-ui.min.js"),
+  #   htmlDependency("showdown", "0.3.1", c(href="shared/showdown/compressed"),
+  #     script = "showdown.js"),
+  #   htmlDependency("highlight.js", "6.2", c(href="shared/highlight"),
+  #     script = "highlight.pack.js")
+  # )
+
   deps  <- list(
-    htmlDependency("jqueryui", "1.12.1", c(href="shared/jqueryui"),
-      script = "jquery-ui.min.js"),
-    htmlDependency("showdown", "0.3.1", c(href="shared/showdown/compressed"),
-      script = "showdown.js"),
-    htmlDependency("highlight.js", "6.2", c(href="shared/highlight"),
+    htmlDependency(
+      'jqueryui', '1.12.1', c(href = 'https://cdn.staticfile.org/jqueryui/1.12.1'),
+      script = 'jquery-ui.min.js'
+    ),
+    # https://cdn.staticfile.org/showdown/0.3.1/showdown.min.js
+    htmlDependency("showdown", "0.3.1", c(href="https://cdn.staticfile.org/showdown/0.3.1"),
+      script = "showdown.min.js"),
+    htmlDependency("highlight.js", "6.2", c(href="https://cdn.kesci.com/q675jrbpb"),
       script = "highlight.pack.js")
   )
 
   mdfile <- file.path.ci(getwd(), 'Readme.md')
+
+  # html <- with(tags, tagList(
+  #   script(src="shared/shiny-showcase.js"),
+  #   link(rel="stylesheet", type="text/css",
+  #        href="shared/highlight/rstudio.css"),
+  #   link(rel="stylesheet", type="text/css",
+  #        href="shared/shiny-showcase.css"),
+  #   if (file.exists(mdfile))
+  #     script(type="text/markdown", id="showcase-markdown-content",
+  #       paste(readUTF8(mdfile), collapse="\n"))
+  #   else ""
+  # ))
+
+  klabToken <- getOption('shiny.klabToken')
   html <- with(tags, tagList(
-    script(src="shared/shiny-showcase.js"),
+    script(src=paste("shared/shiny-showcase.js?token=", klabToken, sep="")),
     link(rel="stylesheet", type="text/css",
-         href="shared/highlight/rstudio.css"),
+         href=paste("shared/highlight/rstudio.css?token=", klabToken, sep="")),
     link(rel="stylesheet", type="text/css",
-         href="shared/shiny-showcase.css"),
+         href=paste("shared/shiny-showcase.css?token=", klabToken, sep="")),
     if (file.exists(mdfile))
       script(type="text/markdown", id="showcase-markdown-content",
         paste(readUTF8(mdfile), collapse="\n"))
