@@ -1126,6 +1126,8 @@ runExample <- function(example=NA,
     pathPrefix <- getOption('shiny.pathPrefix'),
     exampleHost <- getOption('shiny.host', '0.0.0.0'),
     runApp(dir, port = examplePort, exampleHost = host, pathPrefix = pathPrefix, token = klabToken, launch.browser = launch.browser, display.mode = display.mode)
+    proxyPrefix <- getOption('shiny.proxyPrefix')
+    message('\n', '请复制该 URL, 并在浏览器中打开: ', proxyPrefix, pathPrefix, '/?token=', klabToken)
   }
 }
 
